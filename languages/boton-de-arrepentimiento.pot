@@ -1,0 +1,1497 @@
+# Copyright (C) 2026 Facilo
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Botón Claro – Botón de arrepentimiento y baja de servicio 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/boton-de-arrepentimiento\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-07T05:56:34+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: boton-de-arrepentimiento\n"
+
+#. Plugin Name of the plugin
+#: boton-de-arrepentimiento.php
+msgid "Botón Claro – Botón de arrepentimiento y baja de servicio"
+msgstr ""
+
+#. Description of the plugin
+#: boton-de-arrepentimiento.php
+msgid "Mostrá los botones de arrepentimiento y baja, dale un código a cada cliente en el momento y que ningún pedido se te pierda."
+msgstr ""
+
+#. Author of the plugin
+#: boton-de-arrepentimiento.php
+msgid "Facilo"
+msgstr ""
+
+#. Author URI of the plugin
+#: boton-de-arrepentimiento.php
+msgid "https://facilo.es/"
+msgstr ""
+
+#: includes/class-admin.php:71
+#: includes/class-adminlist.php:222
+#: includes/class-adminrequest.php:45
+msgid "Pedidos"
+msgstr ""
+
+#: includes/class-admin.php:72
+#: includes/class-admin.php:142
+#: includes/class-adminsettings.php:113
+msgid "Ajustes"
+msgstr ""
+
+#: includes/class-admin.php:73
+#: includes/class-sitecheck.php:200
+msgid "Revisión del sitio"
+msgstr ""
+
+#: includes/class-admin.php:73
+msgid "Revisión"
+msgstr ""
+
+#: includes/class-admin.php:88
+msgid "Configurar Botón Claro"
+msgstr ""
+
+#: includes/class-admin.php:88
+msgid "Configurar"
+msgstr ""
+
+#: includes/class-admin.php:176
+#: includes/class-adminlist.php:370
+#: includes/class-adminrequest.php:95
+#: includes/class-requests.php:201
+msgid "No pudimos enviar el código por correo."
+msgstr ""
+
+#: includes/class-admin.php:176
+#: templates/emails/parts-button.php:13
+msgid "Ver el pedido"
+msgstr ""
+
+#: includes/class-admin.php:187
+#: includes/class-adminsettings.php:426
+#: includes/class-pages.php:183
+#: includes/class-setup.php:202
+#: includes/class-sitecheck.php:35
+msgid "No tenés permiso para hacer esto."
+msgstr ""
+
+#: includes/class-admin.php:193
+#: includes/class-adminrequest.php:46
+msgid "No encontramos ese pedido."
+msgstr ""
+
+#: includes/class-admin.php:328
+msgid "Este color no se lee bien ni con texto blanco ni con texto negro. Probá uno más claro o más oscuro."
+msgstr ""
+
+#: includes/class-admin.php:334
+msgid "Con este color ponemos el texto en negro, para que se lea bien."
+msgstr ""
+
+#: includes/class-admin.php:339
+msgid "Se lee bien, con texto blanco."
+msgstr ""
+
+#: includes/class-admin.php:358
+msgid "Sabé al instante si un pedido está dentro de los 10 días, con feriados incluidos"
+msgstr ""
+
+#: includes/class-admin.php:359
+msgid "Aceptá, devolvé la plata y reponé el stock en un clic"
+msgstr ""
+
+#: includes/class-admin.php:360
+msgid "Respondé con correos listos para cada caso"
+msgstr ""
+
+#: includes/class-admin.php:361
+msgid "Cancelá suscripciones y mandá la constancia en un solo paso"
+msgstr ""
+
+#: includes/class-admin.php:362
+msgid "Guardá un archivo de cada pedido y exportá todo a CSV"
+msgstr ""
+
+#: includes/class-admin.php:363
+msgid "Recibí avisos antes de que venza un plazo"
+msgstr ""
+
+#: includes/class-admin.php:367
+msgid "Resolvé cada pedido en un clic"
+msgstr ""
+
+#: includes/class-admin.php:368
+msgid "Botón Claro gratis recibe los pedidos. Pro te ahorra el trabajo que viene después."
+msgstr ""
+
+#: includes/class-admin.php:372
+msgid "USD 19 al año por tienda. USD 59 al año para agencias, tiendas sin límite."
+msgstr ""
+
+#: includes/class-admin.php:373
+msgid "14 días para recuperar tu dinero. Se paga en dólares con tarjeta, y tu banco puede sumar impuestos."
+msgstr ""
+
+#: includes/class-admin.php:374
+msgid "Pasar a Pro"
+msgstr ""
+
+#: includes/class-adminlist.php:92
+msgid "Cerrado"
+msgstr ""
+
+#: includes/class-adminlist.php:102
+#: includes/class-adminrequest.php:80
+#: includes/class-requests.php:217
+msgid "Constancia enviada"
+msgstr ""
+
+#. translators: %s: "1 hora" or "n horas".
+#: includes/class-adminlist.php:106
+#: includes/class-adminrequest.php:83
+#, php-format
+msgid "Constancia: vencida hace %s"
+msgstr ""
+
+#. translators: %s: "1 hora" or "n horas".
+#: includes/class-adminlist.php:110
+msgid "Constancia: queda 1 hora"
+msgstr ""
+
+#. translators: %s: "1 hora" or "n horas".
+#: includes/class-adminlist.php:110
+#: includes/class-adminrequest.php:86
+#, php-format
+msgid "Constancia: quedan %s"
+msgstr ""
+
+#: includes/class-adminlist.php:198
+#: includes/class-privacy.php:85
+#: templates/emails/e3-dueno.php:17
+#: templates/emails/e5-constancia.php:13
+msgid "Código"
+msgstr ""
+
+#: includes/class-adminlist.php:199
+#: includes/class-adminlist.php:249
+#: includes/class-privacy.php:86
+#: assets/editor.js:14
+msgid "Tipo"
+msgstr ""
+
+#: includes/class-adminlist.php:200
+#: templates/emails/e3-dueno.php:18
+msgid "Cliente"
+msgstr ""
+
+#: includes/class-adminlist.php:201
+#: includes/class-privacy.php:91
+msgid "Pedido"
+msgstr ""
+
+#: includes/class-adminlist.php:202
+#: includes/class-privacy.php:87
+msgid "Recibido"
+msgstr ""
+
+#: includes/class-adminlist.php:203
+msgid "Tiempo"
+msgstr ""
+
+#: includes/class-adminlist.php:204
+#: includes/class-adminrequest.php:114
+msgid "Estado"
+msgstr ""
+
+#: includes/class-adminlist.php:209
+#: includes/class-adminrequest.php:138
+#: includes/class-privacy.php:92
+msgid "Servicio"
+msgstr ""
+
+#: includes/class-adminlist.php:227
+#: includes/class-util.php:199
+msgid "Nuevo"
+msgstr ""
+
+#: includes/class-adminlist.php:228
+#: includes/class-util.php:200
+msgid "En curso"
+msgstr ""
+
+#: includes/class-adminlist.php:229
+msgid "Vencido"
+msgstr ""
+
+#: includes/class-adminlist.php:230
+#: includes/class-util.php:201
+msgid "Resuelto"
+msgstr ""
+
+#: includes/class-adminlist.php:238
+msgid "Todos"
+msgstr ""
+
+#: includes/class-adminlist.php:249
+msgid "Todos los tipos"
+msgstr ""
+
+#: includes/class-adminlist.php:253
+msgid "Buscar"
+msgstr ""
+
+#: includes/class-adminlist.php:253
+msgid "Código, nombre, correo o pedido"
+msgstr ""
+
+#: includes/class-adminlist.php:264
+msgid "Todavía no llegó ningún pedido. Cuando llegue uno, te avisamos por correo y lo ves acá."
+msgstr ""
+
+#: includes/class-adminlist.php:265
+msgid "No hay pedidos con estos filtros."
+msgstr ""
+
+#: includes/class-adminlist.php:285
+#: includes/class-adminrequest.php:61
+#: includes/class-mailer.php:242
+msgid "Prueba"
+msgstr ""
+
+#: includes/class-adminlist.php:365
+msgid "Cambiamos el estado."
+msgstr ""
+
+#: includes/class-adminlist.php:366
+msgid "Listo: marcamos el pedido como respondido."
+msgstr ""
+
+#: includes/class-adminlist.php:367
+msgid "Mandamos la constancia y cerramos el pedido."
+msgstr ""
+
+#: includes/class-adminlist.php:368
+msgid "No pudimos mandar la constancia. Revisá que tu sitio pueda enviar correos y probá de nuevo."
+msgstr ""
+
+#: includes/class-adminlist.php:369
+msgid "Le mandamos el código al cliente."
+msgstr ""
+
+#: includes/class-adminlist.php:371
+msgid "Borramos el pedido."
+msgstr ""
+
+#: includes/class-adminlist.php:372
+msgid "Hicimos un pedido de prueba. Te mandamos el mismo correo que recibe un cliente."
+msgstr ""
+
+#: includes/class-adminlist.php:373
+#: includes/class-adminsettings.php:431
+msgid "No pudimos hacer ese cambio."
+msgstr ""
+
+#: includes/class-adminrequest.php:47
+#: includes/class-adminrequest.php:50
+msgid "Volver a los pedidos"
+msgstr ""
+
+#. translators: %s: request code.
+#: includes/class-adminrequest.php:51
+#, php-format
+msgid "Pedido %s"
+msgstr ""
+
+#. translators: %s: date and time.
+#: includes/class-adminrequest.php:64
+#, php-format
+msgid "Recibido el %s"
+msgstr ""
+
+#: includes/class-adminrequest.php:76
+msgid "Tenés 24 horas para la primera respuesta."
+msgstr ""
+
+#: includes/class-adminrequest.php:95
+msgid "El cliente vio su código en pantalla. Revisá que tu sitio pueda enviar correos."
+msgstr ""
+
+#: includes/class-adminrequest.php:96
+msgid "Reintentar envío"
+msgstr ""
+
+#. translators: %s: code.
+#: includes/class-adminrequest.php:101
+#, php-format
+msgid "Tu pedido %s"
+msgstr ""
+
+#: includes/class-adminrequest.php:104
+msgid "Ya respondí"
+msgstr ""
+
+#: includes/class-adminrequest.php:107
+msgid "Escribir al cliente"
+msgstr ""
+
+#. translators: %s: customer email.
+#: includes/class-adminrequest.php:111
+#, php-format
+msgid "Vamos a mandarle la constancia a %s. Si cobrás con débito automático, cancelalo en tu medio de pago: este botón no lo hace."
+msgstr ""
+
+#: includes/class-adminrequest.php:112
+msgid "Dar de baja y enviar constancia"
+msgstr ""
+
+#: includes/class-adminrequest.php:119
+msgid "Cambiar estado"
+msgstr ""
+
+#: includes/class-adminrequest.php:127
+msgid "Borrar"
+msgstr ""
+
+#: includes/class-adminrequest.php:127
+msgid "¿Borramos este pedido? No se puede deshacer."
+msgstr ""
+
+#: includes/class-adminrequest.php:133
+#: includes/class-privacy.php:88
+msgid "Nombre"
+msgstr ""
+
+#: includes/class-adminrequest.php:134
+#: includes/class-privacy.php:89
+msgid "Correo"
+msgstr ""
+
+#: includes/class-adminrequest.php:135
+#: includes/class-adminsettings.php:290
+#: includes/class-privacy.php:90
+msgid "Teléfono"
+msgstr ""
+
+#: includes/class-adminrequest.php:139
+msgid "Número de cliente, pedido o contrato"
+msgstr ""
+
+#: includes/class-adminrequest.php:141
+msgid "Número de pedido"
+msgstr ""
+
+#: includes/class-adminrequest.php:142
+msgid "Qué devuelve"
+msgstr ""
+
+#: includes/class-adminrequest.php:142
+#: templates/emails/e3-dueno.php:15
+#: templates/form.php:73
+msgid "Una parte"
+msgstr ""
+
+#: includes/class-adminrequest.php:142
+#: templates/form.php:72
+msgid "Toda la compra"
+msgstr ""
+
+#: includes/class-adminrequest.php:144
+#: includes/class-privacy.php:94
+#: templates/emails/e3-dueno.php:20
+msgid "Mensaje"
+msgstr ""
+
+#: includes/class-adminrequest.php:145
+msgid "Datos del pedido"
+msgstr ""
+
+#: includes/class-adminrequest.php:151
+msgid "Datos personales"
+msgstr ""
+
+#: includes/class-adminrequest.php:151
+msgid "Borrados"
+msgstr ""
+
+#. translators: %s: order number.
+#: includes/class-adminrequest.php:158
+#, php-format
+msgid "Pedido #%s"
+msgstr ""
+
+#: includes/class-adminrequest.php:165
+msgid "Historial"
+msgstr ""
+
+#: includes/class-adminsettings.php:31
+#: includes/class-setup.php:46
+msgid "Botones"
+msgstr ""
+
+#: includes/class-adminsettings.php:32
+msgid "Formularios"
+msgstr ""
+
+#: includes/class-adminsettings.php:33
+#: includes/class-adminsettings.php:293
+#: includes/class-service.php:89
+#: templates/emails/frame.php:41
+msgid "Atención al cliente"
+msgstr ""
+
+#: includes/class-adminsettings.php:34
+#: includes/class-adminsettings.php:307
+msgid "Correos"
+msgstr ""
+
+#: includes/class-adminsettings.php:35
+#: includes/class-adminsettings.php:321
+msgid "Aviso de derechos"
+msgstr ""
+
+#: includes/class-adminsettings.php:36
+#: includes/class-adminsettings.php:337
+msgid "Privacidad"
+msgstr ""
+
+#: includes/class-adminsettings.php:113
+msgid "Abrir la configuración guiada"
+msgstr ""
+
+#: includes/class-adminsettings.php:116
+msgid "Guardamos los cambios."
+msgstr ""
+
+#: includes/class-adminsettings.php:139
+msgid "Guardar cambios"
+msgstr ""
+
+#: includes/class-adminsettings.php:156
+#: includes/class-adminsettings.php:160
+msgid "Estilo"
+msgstr ""
+
+#: includes/class-adminsettings.php:158
+msgid "Volver al recomendado"
+msgstr ""
+
+#: includes/class-adminsettings.php:170
+msgid "Recomendado para tu tienda"
+msgstr ""
+
+#: includes/class-adminsettings.php:182
+msgid "Detalles"
+msgstr ""
+
+#: includes/class-adminsettings.php:183
+msgid "Color"
+msgstr ""
+
+#: includes/class-adminsettings.php:187
+msgid "Otro color"
+msgstr ""
+
+#: includes/class-adminsettings.php:196
+msgid "Así se ve en tu tienda"
+msgstr ""
+
+#: includes/class-adminsettings.php:196
+msgid "Computadora"
+msgstr ""
+
+#: includes/class-adminsettings.php:196
+msgid "Celular"
+msgstr ""
+
+#: includes/class-adminsettings.php:197
+msgid "Vista previa"
+msgstr ""
+
+#: includes/class-adminsettings.php:208
+msgid "Dónde"
+msgstr ""
+
+#: includes/class-adminsettings.php:209
+msgid "Franja al pie"
+msgstr ""
+
+#: includes/class-adminsettings.php:210
+msgid "Botón flotante"
+msgstr ""
+
+#: includes/class-adminsettings.php:213
+msgid "Apagaste las dos posiciones. Si no pusiste los botones con un bloque, tus clientes no los van a ver."
+msgstr ""
+
+#: includes/class-adminsettings.php:223
+msgid "Nombres"
+msgstr ""
+
+#: includes/class-adminsettings.php:224
+#: includes/class-setup.php:154
+msgid "Mostrar también el botón de baja de servicio"
+msgstr ""
+
+#. translators: %s: exact legal name.
+#: includes/class-adminsettings.php:230
+#, php-format
+msgid "Cambiaste el nombre. La norma lo llama “%s”: te recomendamos dejarlo así."
+msgstr ""
+
+#: includes/class-adminsettings.php:233
+msgid "También podés ponerlos en cualquier página con el bloque “Botones de Botón Claro” o con [boton_arrepentimiento] y [boton_baja]."
+msgstr ""
+
+#: includes/class-adminsettings.php:245
+msgid "Páginas de los formularios"
+msgstr ""
+
+#: includes/class-adminsettings.php:254
+#: includes/class-pages.php:202
+msgid "Falta la página del formulario. Hasta que vuelva, el botón no se muestra."
+msgstr ""
+
+#: includes/class-adminsettings.php:256
+msgid "Editar"
+msgstr ""
+
+#: includes/class-adminsettings.php:262
+#: includes/class-pages.php:202
+#: includes/class-sitecheck.php:236
+msgid "Volver a crear la página"
+msgstr ""
+
+#: includes/class-adminsettings.php:264
+msgid "Si querés el formulario en otra página, usá el bloque “Formulario de Botón Claro” o [boton_claro_formulario tipo=\"arrepentimiento\"]."
+msgstr ""
+
+#: includes/class-adminsettings.php:265
+msgid "Texto bajo el formulario de arrepentimiento"
+msgstr ""
+
+#: includes/class-adminsettings.php:266
+msgid "Tus derechos, en palabras simples"
+msgstr ""
+
+#: includes/class-adminsettings.php:266
+msgid "Usá **así** para negrita. Dejá una línea en blanco entre párrafos."
+msgstr ""
+
+#: includes/class-adminsettings.php:277
+#: includes/class-setup.php:129
+msgid "¿Cómo te contactan tus clientes?"
+msgstr ""
+
+#: includes/class-adminsettings.php:277
+#: includes/class-setup.php:130
+msgid "Estos datos se muestran junto a los botones."
+msgstr ""
+
+#: includes/class-adminsettings.php:289
+msgid "Horario de atención"
+msgstr ""
+
+#: includes/class-adminsettings.php:289
+msgid "Lunes a viernes de 9 a 17"
+msgstr ""
+
+#: includes/class-adminsettings.php:289
+msgid "Si atendés solo por teléfono o por internet, la Disposición 954/2025 pide al menos 8 horas en días hábiles, de lunes a viernes."
+msgstr ""
+
+#: includes/class-adminsettings.php:291
+msgid "Correo de atención"
+msgstr ""
+
+#: includes/class-adminsettings.php:292
+msgid "Otro canal para reclamos"
+msgstr ""
+
+#: includes/class-adminsettings.php:292
+msgid "WhatsApp, o un enlace"
+msgstr ""
+
+#: includes/class-adminsettings.php:293
+msgid "Área responsable"
+msgstr ""
+
+#: includes/class-adminsettings.php:298
+#: includes/class-adminsettings.php:308
+msgid "Correo donde recibís los avisos"
+msgstr ""
+
+#: includes/class-adminsettings.php:308
+msgid "Te avisamos acá cuando llega un pedido, y si no pudimos mandarle el código a un cliente."
+msgstr ""
+
+#: includes/class-adminsettings.php:309
+msgid "Los clientes reciben su código al instante, con tu correo de atención para responder. Si un envío falla, lo reintentamos solos durante el día."
+msgstr ""
+
+#: includes/class-adminsettings.php:310
+#: includes/class-sitecheck.php:231
+msgid "Enviar correo de prueba"
+msgstr ""
+
+#: includes/class-adminsettings.php:322
+msgid "Mostrar el aviso en los correos de pedido y en el pago"
+msgstr ""
+
+#: includes/class-adminsettings.php:323
+msgid "Texto del aviso"
+msgstr ""
+
+#: includes/class-adminsettings.php:323
+msgid "{enlace} se cambia por el enlace al formulario. También podés ponerlo en facturas o contratos con [boton_claro_aviso]."
+msgstr ""
+
+#: includes/class-adminsettings.php:325
+msgid "Sin WooCommerce, el aviso se muestra solo donde pongas [boton_claro_aviso]."
+msgstr ""
+
+#: includes/class-adminsettings.php:338
+msgid "Años que guardamos los datos del cliente después de cerrar un pedido"
+msgstr ""
+
+#: includes/class-adminsettings.php:338
+msgid "Tres años es el plazo en que prescriben las sanciones de la Ley 24.240. Después se borran los datos personales, y quedan el código y las fechas."
+msgstr ""
+
+#: includes/class-adminsettings.php:339
+msgid "Borrar todos los datos al desinstalar"
+msgstr ""
+
+#: includes/class-adminsettings.php:340
+msgid "Las páginas de los formularios quedan siempre."
+msgstr ""
+
+#: includes/class-calendar.php:144
+msgid "Sin entrega todavía: el plazo no empezó a correr"
+msgstr ""
+
+#: includes/class-calendar.php:147
+msgid "Fuera de plazo según estos datos"
+msgstr ""
+
+#. translators: 1: day number, 2: term days.
+#: includes/class-calendar.php:151
+#, php-format
+msgid "Día %1$d de %2$d"
+msgstr ""
+
+#. translators: %d: year.
+#: includes/class-calendar.php:189
+#, php-format
+msgid "Sin feriados cargados para %d: revisá la fecha final"
+msgstr ""
+
+#: includes/class-mailer.php:179
+msgid "sin indicar"
+msgstr ""
+
+#. translators: %s: code.
+#: includes/class-mailer.php:194
+#, php-format
+msgid "Recibimos tu pedido de baja: código %s"
+msgstr ""
+
+#. translators: %s: code.
+#: includes/class-mailer.php:194
+#, php-format
+msgid "Recibimos tu pedido de arrepentimiento: código %s"
+msgstr ""
+
+#. translators: %d: try number.
+#: includes/class-mailer.php:216
+#, php-format
+msgid "Intento %d"
+msgstr ""
+
+#. translators: 1: arrepentimiento or baja, 2: date, 3: time.
+#: includes/class-mailer.php:240
+#, php-format
+msgid "Nuevo pedido de %1$s: respondé antes del %2$s a las %3$s"
+msgstr ""
+
+#. translators: %s: code.
+#: includes/class-mailer.php:267
+#, php-format
+msgid "No pudimos mandarle el código a un cliente: %s"
+msgstr ""
+
+#. translators: %s: code.
+#: includes/class-mailer.php:292
+#, php-format
+msgid "Constancia de baja de servicio: %s"
+msgstr ""
+
+#: includes/class-mailer.php:311
+msgid "Correo de prueba"
+msgstr ""
+
+#: includes/class-mailer.php:311
+msgid "Si lees esto, tu sitio puede mandar correos. Volvé a Revisión y tocá \"Me llegó\"."
+msgstr ""
+
+#: includes/class-mailer.php:314
+msgid "Correo de prueba de Botón Claro"
+msgstr ""
+
+#: includes/class-orderlink.php:74
+msgid "No encontramos ese pedido"
+msgstr ""
+
+#: includes/class-orderlink.php:81
+msgid "El correo coincide"
+msgstr ""
+
+#: includes/class-orderlink.php:84
+msgid "El correo no coincide"
+msgstr ""
+
+#: includes/class-pages.php:38
+msgid "Botón de baja de servicio"
+msgstr ""
+
+#: includes/class-pages.php:43
+msgid "Botón de arrepentimiento"
+msgstr ""
+
+#: includes/class-privacy.php:39
+#: includes/class-privacy.php:53
+msgid "Botón Claro: pedidos"
+msgstr ""
+
+#: includes/class-privacy.php:93
+msgid "Detalle"
+msgstr ""
+
+#: includes/class-privacy.php:107
+msgid "Pedidos de arrepentimiento y baja"
+msgstr ""
+
+#. translators: %s: request code.
+#: includes/class-privacy.php:135
+#, php-format
+msgid "El pedido %s sigue abierto: la tienda todavía tiene que responderlo, así que guardamos sus datos hasta cerrarlo."
+msgstr ""
+
+#: includes/class-privacy.php:169
+msgid "Cuando usás el botón de arrepentimiento o el botón de baja, guardamos tu nombre, tu correo, tu teléfono si lo dejás, el número de pedido y tu mensaje, para responder tu pedido."
+msgstr ""
+
+#. translators: %d: years.
+#: includes/class-privacy.php:173
+#, php-format
+msgid "Estos datos quedan en esta tienda y no se envían a nadie más. Los borramos %d año después de cerrar tu pedido. Guardamos solo el código y las fechas."
+msgid_plural "Estos datos quedan en esta tienda y no se envían a nadie más. Los borramos %d años después de cerrar tu pedido. Guardamos solo el código y las fechas."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-requests.php:197
+#: templates/emails/e5-constancia.php:14
+msgid "Pedido recibido"
+msgstr ""
+
+#: includes/class-requests.php:199
+msgid "Código enviado"
+msgstr ""
+
+#: includes/class-requests.php:203
+msgid "No pudimos enviar el código"
+msgstr ""
+
+#: includes/class-requests.php:205
+msgid "No pudimos mandarte el aviso por correo"
+msgstr ""
+
+#: includes/class-requests.php:207
+msgid "Aviso al dueño enviado"
+msgstr ""
+
+#. translators: %s: status.
+#: includes/class-requests.php:211
+#, php-format
+msgid "Estado: %s"
+msgstr ""
+
+#. translators: %s: user name.
+#: includes/class-requests.php:215
+#, php-format
+msgid "Respondido por %s"
+msgstr ""
+
+#: includes/class-requests.php:219
+msgid "Reintento de envío"
+msgstr ""
+
+#: includes/class-requests.php:221
+msgid "Datos personales borrados"
+msgstr ""
+
+#: includes/class-requests.php:223
+msgid "Pedido de prueba: solo te llegó a vos"
+msgstr ""
+
+#: includes/class-requests.php:440
+msgid "Respondido"
+msgstr ""
+
+#: includes/class-requests.php:451
+msgid "Queda 1 hora"
+msgstr ""
+
+#. translators: %d: hours.
+#: includes/class-requests.php:451
+#, php-format
+msgid "Quedan %d horas"
+msgstr ""
+
+#: includes/class-requests.php:458
+msgid "Vencido hace 1 hora"
+msgstr ""
+
+#. translators: %d: hours.
+#: includes/class-requests.php:458
+#, php-format
+msgid "Vencido hace %d horas"
+msgstr ""
+
+#. translators: %s: contact email.
+#: includes/class-rest.php:86
+#, php-format
+msgid "No pudimos tomar tu pedido en este momento. Esperá unos minutos o escribinos a %s."
+msgstr ""
+
+#. translators: %s: contact email.
+#: includes/class-rest.php:89
+#, php-format
+msgid "No pudimos enviar tu pedido. Probá de nuevo en un momento. Si sigue sin funcionar, escribinos a %s."
+msgstr ""
+
+#: includes/class-rest.php:128
+msgid "Completá este dato."
+msgstr ""
+
+#: includes/class-rest.php:136
+msgid "Revisá el correo: parece que le falta algo."
+msgstr ""
+
+#: includes/class-service.php:43
+msgid "Horario:"
+msgstr ""
+
+#: includes/class-service.php:44
+msgid "Teléfono:"
+msgstr ""
+
+#: includes/class-service.php:45
+msgid "Correo:"
+msgstr ""
+
+#: includes/class-service.php:46
+msgid "Reclamos:"
+msgstr ""
+
+#: includes/class-service.php:47
+msgid "Área responsable:"
+msgstr ""
+
+#: includes/class-service.php:63
+msgid "horario"
+msgstr ""
+
+#: includes/class-service.php:64
+msgid "teléfono"
+msgstr ""
+
+#: includes/class-service.php:65
+msgid "área responsable"
+msgstr ""
+
+#: includes/class-service.php:74
+msgid "otro canal para reclamos"
+msgstr ""
+
+#: includes/class-setup.php:44
+msgid "Qué vendés"
+msgstr ""
+
+#: includes/class-setup.php:45
+msgid "Atención"
+msgstr ""
+
+#: includes/class-setup.php:47
+msgid "Listo"
+msgstr ""
+
+#: includes/class-setup.php:77
+msgid "Volver"
+msgstr ""
+
+#: includes/class-setup.php:79
+msgid "Saltear por ahora"
+msgstr ""
+
+#: includes/class-setup.php:107
+msgid "Dejemos tus botones listos"
+msgstr ""
+
+#: includes/class-setup.php:108
+msgid "Son 3 pasos y te lleva unos 3 minutos."
+msgstr ""
+
+#: includes/class-setup.php:109
+msgid "¿Qué vendés?"
+msgstr ""
+
+#: includes/class-setup.php:111
+msgid "Productos"
+msgstr ""
+
+#: includes/class-setup.php:112
+msgid "Servicios o suscripciones"
+msgstr ""
+
+#: includes/class-setup.php:113
+msgid "Las dos cosas"
+msgstr ""
+
+#: includes/class-setup.php:119
+#: includes/class-setup.php:132
+msgid "Seguir"
+msgstr ""
+
+#: includes/class-setup.php:147
+msgid "¿Dónde van los botones?"
+msgstr ""
+
+#: includes/class-setup.php:152
+msgid "Franja al pie de todas las páginas"
+msgstr ""
+
+#: includes/class-setup.php:153
+msgid "Botón flotante, siempre a la vista"
+msgstr ""
+
+#: includes/class-setup.php:161
+msgid "Si solo vendés productos, quizá no lo necesites: la norma habla de bienes y servicios, pero este botón sirve para dar de baja un servicio contratado. Ante la duda, dejalo prendido, no molesta a nadie."
+msgstr ""
+
+#. translators: %s: style name.
+#: includes/class-setup.php:167
+#, php-format
+msgid "Elegimos %s para tu tienda"
+msgstr ""
+
+#: includes/class-setup.php:168
+msgid "Podés cambiarlo cuando quieras en Ajustes."
+msgstr ""
+
+#: includes/class-setup.php:172
+msgid "Crear mis botones"
+msgstr ""
+
+#: includes/class-setup.php:182
+msgid "Tus botones ya están en tu sitio"
+msgstr ""
+
+#: includes/class-setup.php:183
+msgid "Probalos una vez antes de irte: te va a llegar el mismo correo que recibe un cliente."
+msgstr ""
+
+#: includes/class-setup.php:186
+msgid "Hacer un pedido de prueba"
+msgstr ""
+
+#: includes/class-setup.php:187
+msgid "Ver mi sitio"
+msgstr ""
+
+#: includes/class-setup.php:188
+msgid "Revisar mi sitio"
+msgstr ""
+
+#: includes/class-setup.php:190
+msgid "Tu formulario:"
+msgstr ""
+
+#: includes/class-setup.php:261
+msgid "Pedido de prueba"
+msgstr ""
+
+#: includes/class-setup.php:268
+msgid "Pedido de prueba hecho desde la configuración."
+msgstr ""
+
+#: includes/class-sitecheck.php:64
+msgid "Se ve en tu página de inicio"
+msgstr ""
+
+#: includes/class-sitecheck.php:65
+msgid "No lo encontramos en tu página de inicio"
+msgstr ""
+
+#: includes/class-sitecheck.php:91
+msgid "No pudimos mirar tu página desde acá. Abrila en una ventana privada y fijate si ves los botones."
+msgstr ""
+
+#: includes/class-sitecheck.php:95
+msgid "Cambiaste el nombre de un botón"
+msgstr ""
+
+#: includes/class-sitecheck.php:95
+msgid "Los nombres están completos"
+msgstr ""
+
+#: includes/class-sitecheck.php:98
+msgid "Falta un formulario o no es público"
+msgstr ""
+
+#: includes/class-sitecheck.php:98
+msgid "Los formularios están publicados"
+msgstr ""
+
+#. translators: %s: list of missing fields.
+#: includes/class-sitecheck.php:102
+#, php-format
+msgid "Faltan datos de atención: %s"
+msgstr ""
+
+#. translators: %s: list of missing fields.
+#: includes/class-sitecheck.php:102
+msgid "Tus datos de atención están completos"
+msgstr ""
+
+#: includes/class-sitecheck.php:117
+msgid "No pudimos probar el formulario desde acá. Mandá un pedido de prueba desde tu sitio."
+msgstr ""
+
+#: includes/class-sitecheck.php:119
+msgid "El formulario responde"
+msgstr ""
+
+#: includes/class-sitecheck.php:119
+msgid "Algo bloquea el formulario. Revisá tu plugin de seguridad"
+msgstr ""
+
+#: includes/class-sitecheck.php:124
+msgid "Las tareas programadas funcionan"
+msgstr ""
+
+#: includes/class-sitecheck.php:124
+msgid "Las tareas programadas no corren, y sin ellas no se reintentan los correos"
+msgstr ""
+
+#: includes/class-sitecheck.php:126
+msgid "Confirmaste que te llegó el correo de prueba"
+msgstr ""
+
+#: includes/class-sitecheck.php:126
+msgid "Mandate un correo de prueba"
+msgstr ""
+
+#: includes/class-sitecheck.php:128
+msgid "El aviso está en tus correos y en el pago"
+msgstr ""
+
+#: includes/class-sitecheck.php:128
+msgid "El aviso está apagado"
+msgstr ""
+
+#: includes/class-sitecheck.php:131
+msgid "Tu sitio pide iniciar sesión o está en mantenimiento"
+msgstr ""
+
+#: includes/class-sitecheck.php:131
+msgid "Tu sitio está abierto al público"
+msgstr ""
+
+#. translators: %s: email.
+#: includes/class-sitecheck.php:204
+#, php-format
+msgid "Te mandamos un correo de prueba a %s. Cuando te llegue, tocá “Me llegó”."
+msgstr ""
+
+#. translators: %s: email.
+#: includes/class-sitecheck.php:205
+msgid "Tu sitio no pudo mandar el correo de prueba. Revisá la configuración de correo de tu hosting o usá un plugin de SMTP."
+msgstr ""
+
+#: includes/class-sitecheck.php:206
+msgid "Listo, anotamos que te llegó."
+msgstr ""
+
+#: includes/class-sitecheck.php:212
+msgid "Revisar ahora"
+msgstr ""
+
+#. translators: %s: date and time.
+#: includes/class-sitecheck.php:215
+#, php-format
+msgid "Última revisión: %s"
+msgstr ""
+
+#: includes/class-sitecheck.php:219
+msgid "Tocá “Revisar ahora” y miramos tu sitio como lo ve un cliente."
+msgstr ""
+
+#: includes/class-sitecheck.php:232
+msgid "Me llegó"
+msgstr ""
+
+#: includes/class-sitecheck.php:239
+msgid "Completar"
+msgstr ""
+
+#: includes/class-sitecheck.php:245
+msgid "No encontramos nada para corregir."
+msgstr ""
+
+#. translators: %d: number of things to look at.
+#: includes/class-sitecheck.php:248
+#, php-format
+msgid "Hay %d cosa para mirar."
+msgid_plural "Hay %d cosas para mirar."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-sitecheck.php:251
+msgid "Esta revisión mira solo lo que el plugin puede ver. No es asesoramiento legal."
+msgstr ""
+
+#: includes/class-styles.php:31
+msgid "Una franja ancha del color de tu tienda"
+msgstr ""
+
+#: includes/class-styles.php:36
+msgid "Botones redondeados, flotan con sombra"
+msgstr ""
+
+#: includes/class-styles.php:41
+msgid "Blanco con borde, sobrio y prolijo"
+msgstr ""
+
+#. translators: 1: style name, 2: reason, 3: where the colour comes from.
+#: includes/class-styles.php:571
+#, php-format
+msgid "Elegimos %1$s porque %2$s, y el color es %3$s."
+msgstr ""
+
+#: includes/class-util.php:189
+msgid "Baja"
+msgstr ""
+
+#: includes/class-util.php:189
+#: assets/editor.js:17
+msgid "Arrepentimiento"
+msgstr ""
+
+#: includes/class-util.php:202
+msgid "No corresponde"
+msgstr ""
+
+#: includes/class-util.php:203
+msgid "Spam"
+msgstr ""
+
+#. translators: %s: customer name.
+#: templates/emails/e1-arrepentimiento.php:15
+#: templates/emails/e2-baja.php:15
+#: templates/emails/e5-constancia.php:21
+#, php-format
+msgid "Hola %s:"
+msgstr ""
+
+#. translators: 1: shop, 2: date, 3: time.
+#: templates/emails/e1-arrepentimiento.php:21
+#, php-format
+msgid "Recibimos tu pedido de arrepentimiento en %1$s el %2$s a las %3$s."
+msgstr ""
+
+#. translators: %s: order number or "sin indicar".
+#: templates/emails/e1-arrepentimiento.php:28
+#, php-format
+msgid "Pedido: %s"
+msgstr ""
+
+#: templates/emails/e1-arrepentimiento.php:31
+#: templates/emails/e2-baja.php:31
+#: templates/form.php:117
+msgid "Qué sigue:"
+msgstr ""
+
+#: templates/emails/e1-arrepentimiento.php:31
+msgid "revisamos tu pedido y te escribimos a este correo con los pasos para devolver tu compra."
+msgstr ""
+
+#. translators: 1: shop, 2: date, 3: time.
+#: templates/emails/e2-baja.php:21
+#, php-format
+msgid "Recibimos tu pedido de baja en %1$s el %2$s a las %3$s."
+msgstr ""
+
+#. translators: %s: service.
+#: templates/emails/e2-baja.php:28
+#, php-format
+msgid "Servicio: %s"
+msgstr ""
+
+#: templates/emails/e2-baja.php:31
+#: templates/form.php:120
+msgid "revisamos tu pedido y te mandamos la constancia de la baja, sin costo, dentro de las 72 horas."
+msgstr ""
+
+#: templates/emails/e3-dueno.php:19
+msgid "Pedido o servicio"
+msgstr ""
+
+#: templates/emails/e3-dueno.php:24
+msgid "Este es un pedido de prueba: solo te llegó a vos, y no corre ningún plazo."
+msgstr ""
+
+#. translators: 1: arrepentimiento or baja, 2: shop.
+#: templates/emails/e3-dueno.php:29
+#, php-format
+msgid "Llegó un pedido de %1$s en %2$s."
+msgstr ""
+
+#. translators: 1: date, 2: time.
+#: templates/emails/e3-dueno.php:40
+#, php-format
+msgid "Tu cliente ya tiene su código. Tenés hasta el %1$s a las %2$s para responderle."
+msgstr ""
+
+#. translators: %s: customer email.
+#: templates/emails/e4-fallo.php:15
+#, php-format
+msgid "Probamos varias veces y el correo a %s no salió. Tu cliente vio el código en pantalla, pero no lo tiene por correo."
+msgstr ""
+
+#: templates/emails/e4-fallo.php:19
+msgid "Escribile vos, y revisá el envío de correos de tu sitio."
+msgstr ""
+
+#: templates/emails/e5-constancia.php:15
+msgid "Baja hecha"
+msgstr ""
+
+#. translators: 1: service, 2: shop.
+#: templates/emails/e5-constancia.php:27
+#, php-format
+msgid "Dejamos constancia de que diste de baja %1$s en %2$s."
+msgstr ""
+
+#: templates/emails/e5-constancia.php:35
+msgid "Esta constancia es sin costo. Guardala por si la necesitás."
+msgstr ""
+
+#: templates/emails/parts-code.php:14
+#: templates/form.php:108
+msgid "Tu código es"
+msgstr ""
+
+#: templates/form.php:18
+msgid "Si querés dar de baja un servicio o una suscripción, podés hacerlo acá. No hace falta crear una cuenta ni llamar a nadie."
+msgstr ""
+
+#: templates/form.php:19
+msgid "Completá estos datos y te damos un código en el momento. Después te mandamos una constancia de la baja, sin costo, dentro de las 72 horas."
+msgstr ""
+
+#: templates/form.php:21
+msgid "Si compraste online y te arrepentiste, podés pedir la devolución acá. No hace falta crear una cuenta ni llamar a nadie."
+msgstr ""
+
+#: templates/form.php:22
+msgid "Completá estos datos y te damos un código en el momento."
+msgstr ""
+
+#. translators: %s: contact email.
+#: templates/form.php:29
+#, php-format
+msgid "Para usar este formulario necesitás JavaScript. También podés escribirnos a %s."
+msgstr ""
+
+#: templates/form.php:41
+msgid "Nombre y apellido"
+msgstr ""
+
+#: templates/form.php:45
+msgid "Correo electrónico"
+msgstr ""
+
+#: templates/form.php:47
+msgid "Ahí te mandamos el código."
+msgstr ""
+
+#: templates/form.php:50
+msgid "Teléfono (opcional)"
+msgstr ""
+
+#: templates/form.php:56
+msgid "¿Qué servicio querés dar de baja?"
+msgstr ""
+
+#: templates/form.php:60
+msgid "Número de cliente, pedido o contrato (opcional)"
+msgstr ""
+
+#: templates/form.php:62
+msgid "Si no lo tenés, dejalo vacío."
+msgstr ""
+
+#: templates/form.php:66
+msgid "Número de pedido (opcional)"
+msgstr ""
+
+#: templates/form.php:68
+msgid "Lo encontrás en el correo de tu compra. Si no lo tenés, dejalo vacío."
+msgstr ""
+
+#: templates/form.php:71
+msgid "¿Qué querés devolver?"
+msgstr ""
+
+#: templates/form.php:76
+msgid "Contanos qué querés devolver"
+msgstr ""
+
+#: templates/form.php:82
+msgid "Mensaje (opcional)"
+msgstr ""
+
+#: templates/form.php:91
+msgid "Pedir la baja"
+msgstr ""
+
+#: templates/form.php:93
+msgid "Enviar pedido de arrepentimiento"
+msgstr ""
+
+#: templates/form.php:98
+msgid "Usamos estos datos solo para responder tu pedido."
+msgstr ""
+
+#: templates/form.php:100
+msgid "Política de privacidad"
+msgstr ""
+
+#: templates/form.php:106
+msgid "Recibimos tu pedido de baja"
+msgstr ""
+
+#: templates/form.php:106
+msgid "Recibimos tu pedido"
+msgstr ""
+
+#: templates/form.php:107
+msgid "Ya habíamos recibido este pedido. Tu código es el mismo:"
+msgstr ""
+
+#: templates/form.php:110
+msgid "Copiado"
+msgstr ""
+
+#: templates/form.php:110
+msgid "Copiar código"
+msgstr ""
+
+#. translators: %s: customer's email, filled in by the browser.
+#: templates/form.php:114
+#, php-format
+msgid "Guardalo: lo vas a necesitar si nos consultás. También te lo mandamos a %s."
+msgstr ""
+
+#: templates/form.php:122
+msgid "revisamos tu pedido y te escribimos con los pasos para devolver tu compra."
+msgstr ""
+
+#. translators: %s: contact email.
+#: templates/form.php:129
+#, php-format
+msgid "¿No te llegó el correo? Mirá en spam o escribinos a %s."
+msgstr ""
+
+#: assets/editor.js:12
+msgid "Formulario"
+msgstr ""
+
+#: assets/editor.js:18
+msgid "Baja de servicio"
+msgstr ""
+
+#: blocks/atencion/block.json
+msgctxt "block title"
+msgid "Atención al cliente"
+msgstr ""
+
+#: blocks/atencion/block.json
+msgctxt "block description"
+msgid "Tu horario, teléfono, correo y área responsable, como pide la norma."
+msgstr ""
+
+#: blocks/atencion/block.json
+msgctxt "block keyword"
+msgid "atencion"
+msgstr ""
+
+#: blocks/atencion/block.json
+msgctxt "block keyword"
+msgid "reclamos"
+msgstr ""
+
+#: blocks/atencion/block.json
+msgctxt "block keyword"
+msgid "contacto"
+msgstr ""
+
+#: blocks/botones/block.json
+msgctxt "block title"
+msgid "Botones de arrepentimiento y baja"
+msgstr ""
+
+#: blocks/botones/block.json
+msgctxt "block description"
+msgid "Muestra el botón de arrepentimiento y el de baja de servicio donde lo pongas."
+msgstr ""
+
+#: blocks/botones/block.json
+#: blocks/formulario/block.json
+msgctxt "block keyword"
+msgid "arrepentimiento"
+msgstr ""
+
+#: blocks/botones/block.json
+#: blocks/formulario/block.json
+msgctxt "block keyword"
+msgid "baja"
+msgstr ""
+
+#: blocks/botones/block.json
+msgctxt "block keyword"
+msgid "boton"
+msgstr ""
+
+#: blocks/formulario/block.json
+msgctxt "block title"
+msgid "Formulario de arrepentimiento o baja"
+msgstr ""
+
+#: blocks/formulario/block.json
+msgctxt "block description"
+msgid "El formulario donde tus clientes piden el arrepentimiento o la baja y reciben un código."
+msgstr ""
+
+#: blocks/formulario/block.json
+msgctxt "block keyword"
+msgid "formulario"
+msgstr ""

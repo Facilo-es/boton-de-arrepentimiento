@@ -1,0 +1,10 @@
+.bclaro-franja,.bclaro-pill{font:800 calc(17px*var(--bz,1))/1.15 system-ui,"Segoe UI",Roboto,sans-serif}
+.bclaro-franja{position:relative;z-index:99991;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;padding:18px 16px}
+.bclaro-pill{position:fixed;left:16px;bottom:16px;z-index:99990;display:grid;justify-items:start;gap:8px;max-width:calc(100% - 96px);box-sizing:border-box;font-size:calc(15px*var(--bz,1))}
+.bclaro-pill.bclaro-der{left:auto;right:16px;justify-items:end}
+.bclaro-b{position:relative;display:flex;align-items:center;gap:10px;text-decoration:none!important}
+.bclaro-b:after{content:var(--bi,"→"/"")}
+.bclaro-b:focus-visible{outline:3px solid;outline-offset:3px}
+@media(max-width:600px){.bclaro-franja,.bclaro-pill{font-size:calc(13px*var(--bz,1))}.bclaro-franja{justify-content:flex-start}.woocommerce-cart .bclaro-pill,.woocommerce-checkout .bclaro-pill{display:none}}
+@keyframes bclaro-fin{to{opacity:0;visibility:hidden}}
+@supports(animation-timeline:scroll()){.bclaro-pill{animation:bclaro-fin linear both;animation-timeline:scroll(root);animation-range:calc(100% - 120px) 100%}}

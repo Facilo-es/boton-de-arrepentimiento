@@ -1,0 +1,58 @@
+/* Botón Claro form. Inherits the theme's font; colours come from --bc, --bt and --bx. */
+.bc,.bc *{box-sizing:border-box}
+:where(.bc){--bc:#a8421f;--bt:#fff;--bx:#a8421f}
+.bc{font:inherit;color:inherit;max-width:640px;margin:0 auto 32px;line-height:1.45}
+:where(.bc) :where(h1,h2,h3,p,dl,dd,fieldset,legend){margin:0;padding:0;border:0}
+.bc [hidden]{display:none!important}
+.bc input,.bc textarea{font:inherit;color:inherit;width:100%;max-width:100%;background:none;border:0;box-shadow:none;margin:0}
+.bc textarea{resize:vertical;display:block;min-height:0}
+.bc button{font:inherit;cursor:pointer;border:0;text-transform:none;letter-spacing:normal;line-height:1.2}
+.bc small{display:block;font-size:.84em;line-height:1.35;opacity:.75}
+.bc-head{position:relative;background:var(--bc);color:var(--bt);padding:28px 24px 60px;border-radius:24px 24px 0 0;overflow:hidden}
+.bc-head:before,.bc-ok:before{content:"";position:absolute;inset:0;background:radial-gradient(currentColor 1.3px,#0000 1.7px) 0 0/14px 14px;opacity:.16;pointer-events:none}
+.bc-head>*,.bc-ok>*{position:relative}
+.bc-head p{font-size:16px;line-height:1.45;color:inherit}
+.bc-head p+p{margin-top:8px}
+.bc-form{position:relative;display:grid;gap:16px;background:#fff;color:#241c16;margin:-34px 12px 0;padding:24px 20px;border-radius:24px;box-shadow:0 12px 30px #3a2c2226;text-align:left}
+.bc-nojs{display:block;font-size:15px}
+.bc-hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.bc-f label,.bc-scope legend{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px;color:#241c16}
+.bc-f input,.bc-f textarea{border:2px solid #d8cfc3;border-radius:14px;padding:11px 13px;background:#fff;color:#241c16;font-size:16px;line-height:1.3}
+.bc-f input:focus,.bc-f textarea:focus{outline:0;border-color:var(--bx);box-shadow:0 0 0 3px #3a2c2214}
+.bc-f small{margin-top:5px;font-size:13.5px;color:#4a3f36;opacity:1}
+.bc-f.bc-bad input,.bc-f.bc-bad textarea{border-color:#b3261e}
+.bc-f .bc-msg{display:block;color:#b3261e;font-size:13.5px;font-weight:600;margin-top:5px}
+.bc-scope{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:0}
+.bc-scope legend{float:left;width:100%;grid-column:1/-1}
+.bc-scope label{cursor:pointer;display:block;position:relative;margin:0}
+.bc-scope input{position:absolute;opacity:0;width:1px;height:1px}
+.bc-scope span{display:block;text-align:center;padding:12px 6px;font-weight:600;font-size:15px;line-height:1.3;border:2px solid #d8cfc3;border-radius:14px;color:#241c16}
+.bc-scope input:checked+span{background:var(--bc);border-color:var(--bc);color:var(--bt)}
+.bc-scope input:focus-visible+span{outline:3px solid var(--bx);outline-offset:2px}
+.bc-error{background:#fdecea;color:#7a1712;border-radius:12px;padding:10px 13px;font-size:14.5px;font-weight:600}
+.bc .bc-send{display:block;width:100%;background:var(--bc);color:var(--bt);font-weight:800;font-size:17px;padding:16px 18px;border-radius:999px;margin-top:4px}
+.bc .bc-send:hover{filter:brightness(1.07)}
+.bc .bc-send[disabled]{opacity:.7;cursor:progress}
+.bc-note{font-size:13px;line-height:1.4;color:#4a3f36}
+.bc-note a{color:inherit;text-decoration:underline}
+.bc-rights,.bc-att{padding:20px 26px 0;font-size:14px;line-height:1.5}
+.bc-rights p+p{margin-top:8px}
+.bc-att h3{font-size:15px;font-weight:700;margin-bottom:6px;color:inherit}
+.bc-att dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px}
+.bc-att dt{opacity:.75;font-weight:400}
+.bc-att dd{margin:0;overflow-wrap:anywhere}
+.bc-ok{position:relative;display:block;background:var(--bc);color:var(--bt);padding:34px 24px;border-radius:24px;outline:0;overflow:hidden}
+.bc-ok h2{font-size:clamp(28px,6vw,38px);line-height:1.05;font-weight:700;letter-spacing:-.02em;margin-bottom:20px;color:inherit}
+.bc-ok p{color:inherit}
+.bc-cl{font-size:16px}
+.bc-dup{font-size:15px;font-weight:600;margin-bottom:10px}
+.bc-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:800;margin:6px 0 16px}
+.bc-code span{display:block;white-space:nowrap;font-size:24px;line-height:1.1}
+.bc-code span+span{font-size:clamp(44px,13vw,64px);letter-spacing:-.02em;line-height:1.08}
+.bc .bc-copy{background:var(--bt);color:var(--bc);font-weight:800;font-size:15px;padding:12px 24px;border-radius:999px}
+.bc-copy:focus-visible,.bc-send:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+.bc-keep{font-size:15px;line-height:1.45;margin-top:18px}
+.bc-keep b{overflow-wrap:anywhere}
+.bc-next{font-size:15px;line-height:1.45;margin-top:12px}
+.bc-help{font-size:14px;line-height:1.45;margin-top:12px;opacity:.92}
+@media(min-width:600px){.bc-form{margin:-34px 22px 0;padding:28px 28px}.bc-head{padding:32px 30px 62px}.bc-ok{padding:40px 34px}}

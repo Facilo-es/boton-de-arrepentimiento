@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "boton-claro/atencion",
+	"title": "Atención al cliente",
+	"category": "widgets",
+	"icon": "phone",
+	"description": "Tu horario, teléfono, correo y área responsable, como pide la norma.",
+	"keywords": [ "atencion", "reclamos", "contacto" ],
+	"textdomain": "boton-de-arrepentimiento",
+	"supports": { "html": false },
+	"editorScript": "bclaro-editor"
+}

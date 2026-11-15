@@ -1,0 +1,8 @@
+.bclaro-franja,.bclaro-pill{background:var(--bc);color:var(--bt);font-weight:900}
+.bclaro-franja{gap:8px 56px;padding:20px 16px;font-size:calc(19px*var(--bz,1))}
+.bclaro-franja:before{content:"";position:absolute;inset:0;background:radial-gradient(currentColor 1.2px,#0000 1.6px) 0 0/13px 13px;opacity:.16;pointer-events:none}
+.bclaro-pill{left:0;bottom:0;gap:6px;padding:15px 22px calc(15px + env(safe-area-inset-bottom)) 18px;border-radius:0 var(--br,22px) 0 0;box-shadow:0 0 0 3px #fff8,0 8px 26px #0006}
+.bclaro-pill.bclaro-der{right:0;border-radius:var(--br,22px) 0 0 0}
+.bclaro-b{color:inherit!important}
+.bclaro-b:hover{text-decoration:underline!important;text-underline-offset:4px}
+@media(max-width:600px){.bclaro-pill{padding:12px 16px calc(12px + env(safe-area-inset-bottom)) 14px}}
