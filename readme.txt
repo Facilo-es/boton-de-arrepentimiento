@@ -4,7 +4,7 @@ Tags: arrepentimiento, baja de servicio, argentina, woocommerce, devoluciones
 Requires at least: 6.6
 Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,10 @@ Disposición 954/2025 replaced it. The plugin follows the newer rule.
 
 Some hosts don't deliver WordPress email well. That is why the code also shows on screen. Use the site check to send yourself a test email.
 
+= How are the emails sent? =
+
+Through your site's own mail, like any other WordPress email. If your host doesn't deliver email reliably, add an SMTP plugin so the codes and your request alerts arrive.
+
 = How much is Pro? =
 
 USD 19 a year for one store, or USD 59 a year for unlimited stores. It is paid by card through Freemius, and you have 14 days to get your money back.
@@ -119,6 +123,10 @@ Your requests and settings stay, unless you tick "Borrar todos los datos al desi
 
 == Changelog ==
 
+= 1.0.2 =
+* Plugin homepage added.
+* New FAQ answer on how the emails are sent.
+
 = 1.0.1 =
 * New name: Facilo Botón de Arrepentimiento y Baja.
 * Security and code quality improvements.
@@ -127,6 +135,9 @@ Your requests and settings stay, unless you tick "Borrar todos los datos al desi
 * First release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Homepage link and a new FAQ answer. No code changes.
 
 = 1.0.1 =
 New name, and security improvements.

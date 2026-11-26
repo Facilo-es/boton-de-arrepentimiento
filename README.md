@@ -39,6 +39,9 @@ La versión gratis está completa: sin límites de pedidos y sin funciones bloqu
 - **Los 10 días.** El aviso de derechos explica los 10 días corridos desde que tu cliente recibe o contrata la compra, lo que pase último, y que si el último día no es hábil el plazo sigue hasta el primer día hábil. Se muestra bajo el formulario y, con WooCommerce, en el checkout y en los correos del pedido. El formulario nunca se cierra: aunque hayan pasado los 10 días, el pedido llega y decidís vos. Con Pro ves el día exacto de cada pedido, con feriados nacionales incluidos.
 - **El código.** Cada pedido recibe un código como `ARR-2026-4F7K9Q` (o `BAJ-…` para una baja), que tu cliente ve en pantalla en el momento y recibe por correo. En tu lista cada pedido muestra cuánto te queda de las 24 horas para responder y, en una baja, de las 72 horas para mandar la constancia.
 
+**¿Por dónde salen los correos?**
+Por el correo de tu propio sitio, como cualquier otro correo de WordPress. Si tu hosting no entrega bien los correos, sumá un plugin de SMTP para que los códigos y tus avisos lleguen.
+
 **¿Se puede pagar en pesos? ¿Cómo se manejan los impuestos?**
 La versión gratis no cobra nada y no toca tus precios ni tus cobros: tu tienda sigue vendiendo en pesos como siempre. La versión Pro se paga en dólares con tarjeta, a través de Freemius, que es quien vende la licencia y se ocupa de los impuestos de la venta. Tu banco puede sumar sus propios impuestos al cobro en dólares.
 

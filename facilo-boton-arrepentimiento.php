@@ -2,7 +2,8 @@
 /**
  * Plugin Name:       Facilo Botón de Arrepentimiento y Baja
  * Description:       Mostrá los botones de arrepentimiento y baja, dale un código a cada cliente en el momento y que ningún pedido se te pierda.
- * Version:           1.0.1
+ * Plugin URI:        https://facilo.es/proyectos/boton-claro/
+ * Version:           1.0.2
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Facilo
@@ -19,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BCLARO_VERSION', '1.0.1' );
+define( 'BCLARO_VERSION', '1.0.2' );
 define( 'BCLARO_DB_VERSION', '2' );
 define( 'BCLARO_FILE', __FILE__ );
 define( 'BCLARO_DIR', plugin_dir_path( __FILE__ ) );
