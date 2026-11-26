@@ -4,7 +4,7 @@
  *
  * Plain HTML in wp_footer, no JS, and CSS precomputed in the autoloaded settings.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -52,8 +52,8 @@ class Buttons {
 	 * Shortcodes and the block.
 	 */
 	public static function register() {
-		add_shortcode( 'boton_arrepentimiento', array( __CLASS__, 'shortcode_arr' ) );
-		add_shortcode( 'boton_baja', array( __CLASS__, 'shortcode_baja' ) );
+		add_shortcode( 'facilo_boton_arrepentimiento', array( __CLASS__, 'shortcode_arr' ) );
+		add_shortcode( 'facilo_boton_baja', array( __CLASS__, 'shortcode_baja' ) );
 		register_block_type(
 			BCLARO_DIR . 'blocks/botones',
 			array( 'render_callback' => array( __CLASS__, 'render_block' ) )
@@ -140,7 +140,7 @@ class Buttons {
 				$html .= '<div class="' . esc_attr( $class ) . '"' . ( empty( $s['pill'] ) ? ' style="display:none"' : '' ) . '>' . $inner . '</div>';
 			}
 		}
-		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts above.
+		echo wp_kses( $html, Kses::allowed() );
 	}
 
 	/**
@@ -223,7 +223,7 @@ class Buttons {
 	}
 
 	/**
-	 * [boton_arrepentimiento].
+	 * [facilo_boton_arrepentimiento].
 	 *
 	 * @return string
 	 */
@@ -232,7 +232,7 @@ class Buttons {
 	}
 
 	/**
-	 * [boton_baja].
+	 * [facilo_boton_baja].
 	 *
 	 * @return string
 	 */

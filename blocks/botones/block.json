@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "boton-claro/botones",
+	"name": "facilo-boton-arrepentimiento/botones",
 	"title": "Botones de arrepentimiento y baja",
 	"category": "widgets",
 	"icon": "undo",
 	"description": "Muestra el botón de arrepentimiento y el de baja de servicio donde lo pongas.",
 	"keywords": [ "arrepentimiento", "baja", "boton" ],
-	"textdomain": "boton-de-arrepentimiento",
+	"textdomain": "facilo-boton-arrepentimiento",
 	"supports": { "html": false, "multiple": true },
 	"editorScript": "bclaro-editor"
 }

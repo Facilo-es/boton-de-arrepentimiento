@@ -1,4 +1,4 @@
-/* Botón Claro form. Inherits the theme's font; colours come from --bc, --bt and --bx. */
+/* Facilo Botón de Arrepentimiento form. Inherits the theme's font; colours come from --bc, --bt and --bx. */
 .bc,.bc *{box-sizing:border-box}
 :where(.bc){--bc:#a8421f;--bt:#fff;--bx:#a8421f}
 .bc{font:inherit;color:inherit;max-width:640px;margin:0 auto 32px;line-height:1.45}
@@ -45,7 +45,6 @@
 .bc-ok h2{font-size:clamp(28px,6vw,38px);line-height:1.05;font-weight:700;letter-spacing:-.02em;margin-bottom:20px;color:inherit}
 .bc-ok p{color:inherit}
 .bc-cl{font-size:16px}
-.bc-dup{font-size:15px;font-weight:600;margin-bottom:10px}
 .bc-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:800;margin:6px 0 16px}
 .bc-code span{display:block;white-space:nowrap;font-size:24px;line-height:1.1}
 .bc-code span+span{font-size:clamp(44px,13vw,64px);letter-spacing:-.02em;line-height:1.08}

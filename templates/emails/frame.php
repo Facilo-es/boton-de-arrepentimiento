@@ -2,7 +2,7 @@
 /**
  * Email frame: shop name and logo, the body, customer service. Tables and inline styles, for every client.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  *
  * @var array $v body, preheader, shop, logo, home, accent, att.
  */
@@ -34,11 +34,11 @@ $bclaro_font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Ari
 <?php endif; ?>
 </td></tr>
 <tr><td style="padding:12px 28px 24px;font-size:16px;line-height:1.55">
-<?php echo $v['body']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts in the templates. ?>
+<?php echo wp_kses( $v['body'], \BotonClaro\Kses::allowed() ); ?>
 </td></tr>
 <?php if ( $v['att'] ) : ?>
 <tr><td style="padding:18px 28px 24px;border-top:1px solid #eee5da;font-size:14px;line-height:1.6;color:#5c4f45">
-<p style="margin:0 0 6px;font-weight:700;color:#241c16"><?php esc_html_e( 'Atención al cliente', 'boton-de-arrepentimiento' ); ?></p>
+<p style="margin:0 0 6px;font-weight:700;color:#241c16"><?php esc_html_e( 'Atención al cliente', 'facilo-boton-arrepentimiento' ); ?></p>
 	<?php foreach ( $v['att'] as $bclaro_line ) : ?>
 		<?php echo esc_html( $bclaro_line[0] ); ?>: <?php echo esc_html( $bclaro_line[1] ); ?><br>
 <?php endforeach; ?>

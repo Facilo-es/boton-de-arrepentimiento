@@ -2,7 +2,7 @@
 /**
  * Link a request to a WooCommerce order, and compare the emails. Never rules on anything.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -71,17 +71,17 @@ class OrderLink {
 		}
 		if ( ! $order ) {
 			$out['state'] = 'sin_pedido';
-			$out['text']  = __( 'No encontramos ese pedido', 'boton-de-arrepentimiento' );
+			$out['text']  = __( 'No encontramos ese pedido', 'facilo-boton-arrepentimiento' );
 			return $out;
 		}
 		$out['number'] = (string) $order->get_order_number();
 		$out['url']    = (string) $order->get_edit_order_url();
 		if ( strtolower( trim( (string) $order->get_billing_email() ) ) === strtolower( trim( (string) $req->email ) ) ) {
 			$out['state'] = 'confirmado';
-			$out['text']  = __( 'El correo coincide', 'boton-de-arrepentimiento' );
+			$out['text']  = __( 'El correo coincide', 'facilo-boton-arrepentimiento' );
 		} else {
 			$out['state'] = 'dudoso';
-			$out['text']  = __( 'El correo no coincide', 'boton-de-arrepentimiento' );
+			$out['text']  = __( 'El correo no coincide', 'facilo-boton-arrepentimiento' );
 		}
 		return $out;
 	}

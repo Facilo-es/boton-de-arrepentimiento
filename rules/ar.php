@@ -10,7 +10,7 @@
  * (9 Nov, visit of Pope Leo XIV). Checked on 7 Nov 2026. Regional dates, such as 10 Nov in CABA and
  * Córdoba or 11 Nov in Buenos Aires province, are left out: owners add them in Ajustes.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 defined( 'ABSPATH' ) || exit;

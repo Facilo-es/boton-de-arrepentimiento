@@ -2,7 +2,7 @@
 /**
  * Mail retries through WP-Cron: every 15 minutes, up to 8 retries, then E4 and a notice.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;

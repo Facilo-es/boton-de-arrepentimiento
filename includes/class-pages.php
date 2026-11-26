@@ -2,7 +2,7 @@
 /**
  * The two form pages: create, bring back, and keep the button links in step.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -35,12 +35,12 @@ class Pages {
 	public static function meta( $type ) {
 		if ( 'baja' === $type ) {
 			return array(
-				'title' => __( 'Botón de baja de servicio', 'boton-de-arrepentimiento' ),
+				'title' => __( 'Botón de baja de servicio', 'facilo-boton-arrepentimiento' ),
 				'slug'  => 'boton-de-baja-de-servicio',
 			);
 		}
 		return array(
-			'title' => __( 'Botón de arrepentimiento', 'boton-de-arrepentimiento' ),
+			'title' => __( 'Botón de arrepentimiento', 'facilo-boton-arrepentimiento' ),
 			'slug'  => 'boton-de-arrepentimiento',
 		);
 	}
@@ -165,7 +165,7 @@ class Pages {
 					'post_status'    => 'publish',
 					'post_title'     => $m['title'],
 					'post_name'      => $m['slug'],
-					'post_content'   => '<!-- wp:boton-claro/formulario {"tipo":"' . $type . '"} /-->',
+					'post_content'   => '<!-- wp:facilo-boton-arrepentimiento/formulario {"tipo":"' . $type . '"} /-->',
 					'comment_status' => 'closed',
 					'ping_status'    => 'closed',
 				)
@@ -180,7 +180,7 @@ class Pages {
 	 */
 	public static function handle_recreate() {
 		if ( ! current_user_can( Util::cap() ) ) {
-			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'boton-de-arrepentimiento' ), 403 );
+			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'facilo-boton-arrepentimiento' ), 403 );
 		}
 		check_admin_referer( 'bclaro_recrear' );
 		foreach ( self::missing() as $type ) {
@@ -192,13 +192,13 @@ class Pages {
 	}
 
 	/**
-	 * The notice when a needed page is missing. Shown on every admin screen, as the buttons are hidden meanwhile.
+	 * The notice when a needed page is missing. Only on the plugin's own screens (wordpress.org guideline 11).
 	 */
 	public static function notice() {
-		if ( ! get_option( 'bclaro_setup_done' ) || ! current_user_can( Util::cap() ) || ! self::missing() ) {
+		if ( '' === Admin::is_own_screen() || ! get_option( 'bclaro_setup_done' ) || ! current_user_can( Util::cap() ) || ! self::missing() ) {
 			return;
 		}
 		$url = wp_nonce_url( admin_url( 'admin-post.php?action=bclaro_recrear' ), 'bclaro_recrear' );
-		echo '<div class="notice notice-warning bclaro-notice"><p><strong>Botón Claro:</strong> ' . esc_html__( 'Falta la página del formulario. Hasta que vuelva, el botón no se muestra.', 'boton-de-arrepentimiento' ) . '</p><p><a class="button button-primary" href="' . esc_url( $url ) . '">' . esc_html__( 'Volver a crear la página', 'boton-de-arrepentimiento' ) . '</a></p></div>';
+		echo '<div class="notice notice-warning is-dismissible bclaro-notice"><p><strong>Facilo Botón de Arrepentimiento:</strong> ' . esc_html__( 'Falta la página del formulario. Hasta que vuelva, el botón no se muestra.', 'facilo-boton-arrepentimiento' ) . '</p><p><a class="button button-primary" href="' . esc_url( $url ) . '">' . esc_html__( 'Volver a crear la página', 'facilo-boton-arrepentimiento' ) . '</a></p></div>';
 	}
 }

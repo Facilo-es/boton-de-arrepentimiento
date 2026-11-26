@@ -1,8 +1,8 @@
 <?php
 /**
- * Rights notice (F9): order emails, classic and block checkout, and [boton_claro_aviso].
+ * Rights notice (F9): order emails, classic and block checkout, and [facilo_arrepentimiento_aviso].
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -28,7 +28,7 @@ class Notice {
 	 * Shortcode.
 	 */
 	public static function register() {
-		add_shortcode( 'boton_claro_aviso', array( __CLASS__, 'shortcode' ) );
+		add_shortcode( 'facilo_arrepentimiento_aviso', array( __CLASS__, 'shortcode' ) );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class Notice {
 	}
 
 	/**
-	 * [boton_claro_aviso].
+	 * [facilo_arrepentimiento_aviso].
 	 *
 	 * @return string
 	 */

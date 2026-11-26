@@ -4,7 +4,7 @@
  *
  * The IP hash lives only in a transient and is never stored with a request.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;

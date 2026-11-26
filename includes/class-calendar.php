@@ -4,7 +4,7 @@
  *
  * All dates are plain Y-m-d strings in Argentine time. No clock is read here, so the helpers are pure.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -144,14 +144,14 @@ class Calendar {
 	 */
 	public static function day_text( $start_ymd, $last_ymd, $ymd ) {
 		if ( '' === (string) $start_ymd ) {
-			return __( 'Sin entrega todavía: el plazo no empezó a correr', 'boton-de-arrepentimiento' );
+			return __( 'Sin entrega todavía: el plazo no empezó a correr', 'facilo-boton-arrepentimiento' );
 		}
 		if ( $ymd > $last_ymd ) {
-			return __( 'Fuera de plazo según estos datos', 'boton-de-arrepentimiento' );
+			return __( 'Fuera de plazo según estos datos', 'facilo-boton-arrepentimiento' );
 		}
 		$r = Util::rules();
 		/* translators: 1: day number, 2: term days. */
-		return sprintf( __( 'Día %1$d de %2$d', 'boton-de-arrepentimiento' ), max( 0, self::day_number( $start_ymd, $ymd ) ), (int) $r['term_days'] );
+		return sprintf( __( 'Día %1$d de %2$d', 'facilo-boton-arrepentimiento' ), max( 0, self::day_number( $start_ymd, $ymd ) ), (int) $r['term_days'] );
 	}
 
 	/**
@@ -189,7 +189,7 @@ class Calendar {
 	 */
 	public static function missing_note( $year ) {
 		/* translators: %d: year. */
-		return sprintf( __( 'Sin feriados cargados para %d: revisá la fecha final', 'boton-de-arrepentimiento' ), (int) $year );
+		return sprintf( __( 'Sin feriados cargados para %d: revisá la fecha final', 'facilo-boton-arrepentimiento' ), (int) $year );
 	}
 
 	/**

@@ -1,4 +1,4 @@
-/* Botón Claro admin: confirm prompts, style picker, colour check and the live preview. No outside requests. */
+/* Facilo Botón de Arrepentimiento admin: confirm prompts, style picker, colour check and the live preview. No outside requests. */
 ( function () {
 	'use strict';
 
@@ -100,7 +100,7 @@
 				}
 				var tiles = data.tiles || {};
 				Object.keys( tiles ).forEach( function ( slug ) {
-					var t = document.getElementById( 'bclaro-tile-css-' + slug );
+					var t = document.getElementById( 'bclaro-tile-css-' + slug + '-inline-css' );
 					if ( t ) {
 						t.textContent = tiles[ slug ];
 					}

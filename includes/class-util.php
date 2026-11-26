@@ -2,7 +2,7 @@
 /**
  * Small shared helpers: rules, capability, dates in Argentine time.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -186,7 +186,7 @@ class Util {
 	 * @return string
 	 */
 	public static function type_label( $type ) {
-		return 'baja' === $type ? __( 'Baja', 'boton-de-arrepentimiento' ) : __( 'Arrepentimiento', 'boton-de-arrepentimiento' );
+		return 'baja' === $type ? __( 'Baja', 'facilo-boton-arrepentimiento' ) : __( 'Arrepentimiento', 'facilo-boton-arrepentimiento' );
 	}
 
 	/**
@@ -196,11 +196,12 @@ class Util {
 	 */
 	public static function statuses() {
 		return array(
-			'nuevo'          => __( 'Nuevo', 'boton-de-arrepentimiento' ),
-			'en_curso'       => __( 'En curso', 'boton-de-arrepentimiento' ),
-			'resuelto'       => __( 'Resuelto', 'boton-de-arrepentimiento' ),
-			'no_corresponde' => __( 'No corresponde', 'boton-de-arrepentimiento' ),
-			'spam'           => __( 'Spam', 'boton-de-arrepentimiento' ),
+			'nuevo'          => __( 'Nuevo', 'facilo-boton-arrepentimiento' ),
+			'en_curso'       => __( 'En curso', 'facilo-boton-arrepentimiento' ),
+			'resuelto'       => __( 'Resuelto', 'facilo-boton-arrepentimiento' ),
+			'no_corresponde' => __( 'No corresponde', 'facilo-boton-arrepentimiento' ),
+			'repetido'       => __( 'Repetido', 'facilo-boton-arrepentimiento' ),
+			'spam'           => __( 'Spam', 'facilo-boton-arrepentimiento' ),
 		);
 	}
 

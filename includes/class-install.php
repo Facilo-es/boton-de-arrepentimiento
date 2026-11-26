@@ -2,7 +2,7 @@
 /**
  * Tables, options and scheduled tasks.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -18,7 +18,8 @@ class Install {
 	 * Hooks.
 	 */
 	public static function boot() {
-		add_action( 'plugins_loaded', array( __CLASS__, 'maybe_upgrade' ) );
+		add_action( 'init', array( __CLASS__, 'maybe_upgrade' ), 5 ); // After $wp_rewrite exists: Settings::ensure() builds page links.
+		add_action( 'init', array( __CLASS__, 'maybe_migrate_content' ), 20 );
 		add_filter( 'cron_schedules', array( __CLASS__, 'schedules' ) ); // phpcs:ignore WordPress.WP.CronInterval.CronSchedulesInterval -- 15 minutes is the retry spacing the spec asks for.
 	}
 
@@ -31,7 +32,7 @@ class Install {
 	public static function schedules( $s ) {
 		$s['bclaro_15min'] = array(
 			'interval' => 900,
-			'display'  => 'Botón Claro, cada 15 minutos',
+			'display'  => 'Facilo Botón de Arrepentimiento, cada 15 minutos',
 		);
 		return $s;
 	}
@@ -95,6 +96,45 @@ class Install {
 	}
 
 	/**
+	 * Once per plugin version: move the plugin's own pages to the 1.0.1 shortcode and block names.
+	 */
+	public static function maybe_migrate_content() {
+		if ( get_option( 'bclaro_plugin_version' ) === BCLARO_VERSION ) {
+			return;
+		}
+		$s = Settings::get();
+		foreach ( array( 'page_arrepentimiento', 'page_baja' ) as $key ) {
+			$id   = isset( $s[ $key ] ) ? (int) $s[ $key ] : 0;
+			$post = $id ? get_post( $id ) : null;
+			if ( ! $post || 'page' !== $post->post_type ) {
+				continue;
+			}
+			$new = self::migrate_text( (string) $post->post_content );
+			if ( $new !== $post->post_content ) {
+				wp_update_post(
+					array(
+						'ID'           => $id,
+						'post_content' => wp_slash( $new ),
+					)
+				);
+			}
+		}
+		update_option( 'bclaro_plugin_version', BCLARO_VERSION, false );
+	}
+
+	/**
+	 * Rewrite the 1.0.0 shortcode tags and block names to the 1.0.1 ones.
+	 *
+	 * @param string $text Post content.
+	 * @return string
+	 */
+	public static function migrate_text( $text ) {
+		$text = preg_replace( '#\[(/?)boton_claro_(aviso|atencion|formulario)(?=[\s\]/])#', '[$1facilo_arrepentimiento_$2', $text );
+		$text = preg_replace( '#\[(/?)boton_(arrepentimiento|baja)(?=[\s\]/])#', '[$1facilo_boton_$2', $text );
+		return preg_replace( '#<!-- (/?)wp:boton-claro/(formulario|botones|atencion)(?=[\s/])#', '<!-- $1wp:facilo-boton-arrepentimiento/$2', $text );
+	}
+
+	/**
 	 * Create or update both tables.
 	 */
 	public static function create_tables() {
@@ -127,12 +167,14 @@ class Install {
   erased_at datetime NULL,
   code_mail_status varchar(10) NOT NULL DEFAULT 'pendiente',
   code_mail_tries tinyint(3) unsigned NOT NULL DEFAULT 0,
+  repeat_of bigint(20) unsigned NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY code (code),
   KEY email (email),
   KEY order_id (order_id),
   KEY status (status),
-  KEY created_at (created_at)
+  KEY created_at (created_at),
+  KEY repeat_of (repeat_of)
 ) $charset;"
 		);
 		dbDelta(

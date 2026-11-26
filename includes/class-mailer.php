@@ -2,7 +2,7 @@
 /**
  * Emails E1 to E5 in one simple HTML frame, with a plain-text part for plain clients.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -176,7 +176,7 @@ class Mailer {
 			'code'  => $req->code,
 			'date'  => Util::date( $ts ),
 			'time'  => Util::time( $ts ),
-			'order' => '' !== (string) $req->order_ref ? $req->order_ref : __( 'sin indicar', 'boton-de-arrepentimiento' ),
+			'order' => '' !== (string) $req->order_ref ? $req->order_ref : __( 'sin indicar', 'facilo-boton-arrepentimiento' ),
 			'url'   => Util::admin_url( 'bclaro', array( 'id' => (int) $req->id ) ),
 		);
 	}
@@ -191,7 +191,7 @@ class Mailer {
 	public static function send_code( $req, $manual = false ) {
 		$name = 'baja' === $req->type ? 'e2-baja' : 'e1-arrepentimiento';
 		/* translators: %s: code. */
-		$subject = 'baja' === $req->type ? __( 'Recibimos tu pedido de baja: código %s', 'boton-de-arrepentimiento' ) : __( 'Recibimos tu pedido de arrepentimiento: código %s', 'boton-de-arrepentimiento' );
+		$subject = 'baja' === $req->type ? __( 'Recibimos tu pedido de baja: código %s', 'facilo-boton-arrepentimiento' ) : __( 'Recibimos tu pedido de arrepentimiento: código %s', 'facilo-boton-arrepentimiento' );
 		$v       = self::vars( $req );
 		$ok      = self::send(
 			$req->email,
@@ -213,7 +213,7 @@ class Mailer {
 			)
 		);
 		/* translators: %d: try number. */
-		$note = sprintf( __( 'Intento %d', 'boton-de-arrepentimiento' ), $tries );
+		$note = sprintf( __( 'Intento %d', 'facilo-boton-arrepentimiento' ), $tries );
 		if ( $manual ) {
 			Requests::event( $req->id, 'reintento', $note, get_current_user_id() );
 		}
@@ -237,9 +237,9 @@ class Mailer {
 		$v['due_t'] = Util::time( $due );
 		$v['type']  = 'baja' === $req->type ? 'baja' : 'arrepentimiento';
 		/* translators: 1: arrepentimiento or baja, 2: date, 3: time. */
-		$subject = sprintf( __( 'Nuevo pedido de %1$s: respondé antes del %2$s a las %3$s', 'boton-de-arrepentimiento' ), $v['type'], $v['due_d'], $v['due_t'] );
+		$subject = sprintf( __( 'Nuevo pedido de %1$s: respondé antes del %2$s a las %3$s', 'facilo-boton-arrepentimiento' ), $v['type'], $v['due_d'], $v['due_t'] );
 		if ( $req->is_test ) {
-			$subject = '[' . __( 'Prueba', 'boton-de-arrepentimiento' ) . '] ' . $subject;
+			$subject = '[' . __( 'Prueba', 'facilo-boton-arrepentimiento' ) . '] ' . $subject;
 		}
 		$ok = self::send(
 			Util::notify_email(),
@@ -264,7 +264,7 @@ class Mailer {
 	public static function send_fail( $req ) {
 		$v = self::vars( $req );
 		/* translators: %s: code. */
-		$subject = sprintf( __( 'No pudimos mandarle el código a un cliente: %s', 'boton-de-arrepentimiento' ), $req->code );
+		$subject = sprintf( __( 'No pudimos mandarle el código a un cliente: %s', 'facilo-boton-arrepentimiento' ), $req->code );
 		return self::send(
 			Util::notify_email(),
 			$subject,
@@ -289,7 +289,7 @@ class Mailer {
 		$v['got']     = Util::full( Util::ts( $req->created_at ) );
 		$v['done']    = Util::full( $done_ts );
 		/* translators: %s: code. */
-		$subject = sprintf( __( 'Constancia de baja de servicio: %s', 'boton-de-arrepentimiento' ), $req->code );
+		$subject = sprintf( __( 'Constancia de baja de servicio: %s', 'facilo-boton-arrepentimiento' ), $req->code );
 		return self::send(
 			$req->email,
 			$subject,
@@ -308,10 +308,10 @@ class Mailer {
 	 * @return bool
 	 */
 	public static function send_test() {
-		$body = '<h1 style="margin:0 0 12px;font-size:22px">' . esc_html__( 'Correo de prueba', 'boton-de-arrepentimiento' ) . '</h1><p style="margin:0">' . esc_html__( 'Si lees esto, tu sitio puede mandar correos. Volvé a Revisión y tocá "Me llegó".', 'boton-de-arrepentimiento' ) . '</p>';
+		$body = '<h1 style="margin:0 0 12px;font-size:22px">' . esc_html__( 'Correo de prueba', 'facilo-boton-arrepentimiento' ) . '</h1><p style="margin:0">' . esc_html__( 'Si lees esto, tu sitio puede mandar correos. Volvé a Revisión y tocá "Me llegó".', 'facilo-boton-arrepentimiento' ) . '</p>';
 		return self::send(
 			Util::notify_email(),
-			__( 'Correo de prueba de Botón Claro', 'boton-de-arrepentimiento' ),
+			__( 'Correo de prueba de Facilo Botón de Arrepentimiento', 'facilo-boton-arrepentimiento' ),
 			$body,
 			array( 'template' => 'prueba' )
 		);

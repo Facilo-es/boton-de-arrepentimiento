@@ -1,8 +1,8 @@
 <?php
 /**
- * The public route the form posts to: POST /wp-json/boton-claro/v1/solicitudes.
+ * The public route the form posts to: POST /wp-json/facilo-boton-arrepentimiento/v1/solicitudes.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Rest {
 
-	const NS    = 'boton-claro/v1';
+	const NS    = 'facilo-boton-arrepentimiento/v1';
 	const ROUTE = '/solicitudes';
 
 	/**
@@ -83,10 +83,10 @@ class Rest {
 		$mail = Util::contact_email();
 		if ( 'limite' === $kind ) {
 			/* translators: %s: contact email. */
-			return sprintf( __( 'No pudimos tomar tu pedido en este momento. Esperá unos minutos o escribinos a %s.', 'boton-de-arrepentimiento' ), $mail );
+			return sprintf( __( 'No pudimos tomar tu pedido en este momento. Esperá unos minutos o escribinos a %s.', 'facilo-boton-arrepentimiento' ), $mail );
 		}
 		/* translators: %s: contact email. */
-		return sprintf( __( 'No pudimos enviar tu pedido. Probá de nuevo en un momento. Si sigue sin funcionar, escribinos a %s.', 'boton-de-arrepentimiento' ), $mail );
+		return sprintf( __( 'No pudimos enviar tu pedido. Probá de nuevo en un momento. Si sigue sin funcionar, escribinos a %s.', 'facilo-boton-arrepentimiento' ), $mail );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Rest {
 			'is_test'   => 0,
 		);
 		$e     = array();
-		$need  = __( 'Completá este dato.', 'boton-de-arrepentimiento' );
+		$need  = __( 'Completá este dato.', 'facilo-boton-arrepentimiento' );
 		if ( '' === $d['name'] ) {
 			$e['nombre'] = $need;
 		}
@@ -133,7 +133,7 @@ class Rest {
 		if ( '' === $raw ) {
 			$e['correo'] = $need;
 		} elseif ( ! is_email( $d['email'] ) ) {
-			$e['correo'] = __( 'Revisá el correo: parece que le falta algo.', 'boton-de-arrepentimiento' );
+			$e['correo'] = __( 'Revisá el correo: parece que le falta algo.', 'facilo-boton-arrepentimiento' );
 		}
 		if ( 'baja' === $type && '' === $d['service'] ) {
 			$e['servicio'] = $need;
@@ -167,30 +167,41 @@ class Rest {
 				400
 			);
 		}
+		// A repeat of a recent request (same type, email and order within 15 minutes) is stored as
+		// its own request with its own new code, linked to the earlier one. The reply is built the
+		// same way for both, so it never tells a visitor whether an earlier request exists, and it
+		// never carries anything from that earlier request.
 		$dup = Requests::duplicate( $d['type'], $d['email'], $d['order_ref'] );
 		if ( $dup ) {
-			return new \WP_REST_Response(
-				array(
-					'ok'    => true,
-					'dup'   => true,
-					'code'  => $dup->code,
-					'email' => $dup->email,
-				),
-				200
-			);
+			$d['repeat_of'] = (int) $dup->id;
 		}
 		$req = Requests::create( $d );
 		if ( is_wp_error( $req ) || ! $req ) {
 			return self::reply( 500, 'servidor' );
 		}
 		Mailer::send_code( $req );
-		Mailer::send_owner( Requests::get( $req->id ) );
+		if ( ! $dup ) {
+			// The owner already has the earlier request; a repeat only shows in its timeline.
+			Mailer::send_owner( Requests::get( $req->id ) );
+		}
+		return self::received( $req->code, $req->email );
+	}
+
+	/**
+	 * The success reply, the same for new and repeated requests.
+	 *
+	 * @param string $code  Code of the request just stored.
+	 * @param string $email Customer's email, as they typed it.
+	 * @return \WP_REST_Response
+	 */
+	private static function received( $code, $email ) {
 		return new \WP_REST_Response(
 			array(
-				'ok'    => true,
-				'dup'   => false,
-				'code'  => $req->code,
-				'email' => $req->email,
+				'ok'      => true,
+				'code'    => (string) $code,
+				'email'   => (string) $email,
+				/* translators: %s: customer's email. */
+				'message' => sprintf( __( 'Recibimos tu pedido. Te mandamos el código por correo a %s.', 'facilo-boton-arrepentimiento' ), $email ),
 			),
 			201
 		);

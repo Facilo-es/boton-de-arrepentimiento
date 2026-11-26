@@ -2,7 +2,7 @@
 /**
  * Request codes: ARR-2026-4F7K9Q.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;

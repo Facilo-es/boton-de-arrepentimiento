@@ -18,9 +18,9 @@
   },
   "component": {
    "type": "application",
-   "name": "boton-de-arrepentimiento",
-   "version": "1.0.0",
-   "description": "Botón Claro, botón de arrepentimiento y baja de servicio for WordPress. No bundled third-party code, fonts or images.",
+   "name": "facilo-boton-arrepentimiento",
+   "version": "1.0.1",
+   "description": "Facilo Botón de Arrepentimiento y Baja, the withdrawal and cancellation button for WordPress. No bundled third-party code, fonts or images.",
    "licenses": [
     {
      "license": {

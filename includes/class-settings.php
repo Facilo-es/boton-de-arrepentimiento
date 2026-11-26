@@ -2,7 +2,7 @@
 /**
  * The single autoloaded settings option.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;

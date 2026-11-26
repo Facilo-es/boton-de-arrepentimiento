@@ -2,7 +2,7 @@
 /**
  * Revisión: one click looks at the home page through a loopback and lists what to fix.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -32,7 +32,7 @@ class SiteCheck {
 	 */
 	private static function guard( $action ) {
 		if ( ! current_user_can( Util::cap() ) ) {
-			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'boton-de-arrepentimiento' ), 403 );
+			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'facilo-boton-arrepentimiento' ), 403 );
 		}
 		check_admin_referer( $action );
 	}
@@ -61,8 +61,8 @@ class SiteCheck {
 	public static function run() {
 		$s     = Settings::get();
 		$lines = array();
-		$ok    = __( 'Se ve en tu página de inicio', 'boton-de-arrepentimiento' );
-		$miss  = __( 'No lo encontramos en tu página de inicio', 'boton-de-arrepentimiento' );
+		$ok    = __( 'Se ve en tu página de inicio', 'facilo-boton-arrepentimiento' );
+		$miss  = __( 'No lo encontramos en tu página de inicio', 'facilo-boton-arrepentimiento' );
 
 		// Home page through a loopback.
 		$url  = add_query_arg( 'bclaro_revision', (string) Util::now(), home_url( '/' ) );
@@ -88,18 +88,18 @@ class SiteCheck {
 				$lines[] = self::line( 'baja', false !== strpos( $body, 'data-bclaro="baja"' ) ? 'ok' : 'warn', false !== strpos( $body, 'data-bclaro="baja"' ) ? $ok : $miss );
 			}
 		} else {
-			$lines[] = self::line( 'arrepentimiento', 'na', __( 'No pudimos mirar tu página desde acá. Abrila en una ventana privada y fijate si ves los botones.', 'boton-de-arrepentimiento' ) );
+			$lines[] = self::line( 'arrepentimiento', 'na', __( 'No pudimos mirar tu página desde acá. Abrila en una ventana privada y fijate si ves los botones.', 'facilo-boton-arrepentimiento' ) );
 		}
 
 		$changed = Settings::label_changed( 'arrepentimiento' ) || ( ! empty( $s['baja'] ) && Settings::label_changed( 'baja' ) );
-		$lines[] = self::line( 'nombres', $changed ? 'warn' : 'ok', $changed ? __( 'Cambiaste el nombre de un botón', 'boton-de-arrepentimiento' ) : __( 'Los nombres están completos', 'boton-de-arrepentimiento' ) );
+		$lines[] = self::line( 'nombres', $changed ? 'warn' : 'ok', $changed ? __( 'Cambiaste el nombre de un botón', 'facilo-boton-arrepentimiento' ) : __( 'Los nombres están completos', 'facilo-boton-arrepentimiento' ) );
 
 		$pages   = Pages::missing();
-		$lines[] = self::line( 'paginas', $pages ? 'warn' : 'ok', $pages ? __( 'Falta un formulario o no es público', 'boton-de-arrepentimiento' ) : __( 'Los formularios están publicados', 'boton-de-arrepentimiento' ) );
+		$lines[] = self::line( 'paginas', $pages ? 'warn' : 'ok', $pages ? __( 'Falta un formulario o no es público', 'facilo-boton-arrepentimiento' ) : __( 'Los formularios están publicados', 'facilo-boton-arrepentimiento' ) );
 
 		$svc = Service::missing();
 		/* translators: %s: list of missing fields. */
-		$lines[] = self::line( 'atencion', $svc ? 'warn' : 'ok', $svc ? sprintf( __( 'Faltan datos de atención: %s', 'boton-de-arrepentimiento' ), implode( ', ', $svc ) ) : __( 'Tus datos de atención están completos', 'boton-de-arrepentimiento' ) );
+		$lines[] = self::line( 'atencion', $svc ? 'warn' : 'ok', $svc ? sprintf( __( 'Faltan datos de atención: %s', 'facilo-boton-arrepentimiento' ), implode( ', ', $svc ) ) : __( 'Tus datos de atención están completos', 'facilo-boton-arrepentimiento' ) );
 
 		// The form's REST route: a post with no timing must come back as our own JSON refusal.
 		// It stops at the bot check, so it neither stores anything nor counts toward the hourly limit.
@@ -114,21 +114,21 @@ class SiteCheck {
 		$json = is_wp_error( $r ) ? null : json_decode( (string) wp_remote_retrieve_body( $r ), true );
 		$form = is_array( $json ) && isset( $json['error'] ) && in_array( $json['error'], array( 'campos', 'limite' ), true );
 		if ( is_wp_error( $r ) ) {
-			$lines[] = self::line( 'formulario', 'na', __( 'No pudimos probar el formulario desde acá. Mandá un pedido de prueba desde tu sitio.', 'boton-de-arrepentimiento' ) );
+			$lines[] = self::line( 'formulario', 'na', __( 'No pudimos probar el formulario desde acá. Mandá un pedido de prueba desde tu sitio.', 'facilo-boton-arrepentimiento' ) );
 		} else {
-			$lines[] = self::line( 'formulario', $form ? 'ok' : 'warn', $form ? __( 'El formulario responde', 'boton-de-arrepentimiento' ) : __( 'Algo bloquea el formulario. Revisá tu plugin de seguridad', 'boton-de-arrepentimiento' ) );
+			$lines[] = self::line( 'formulario', $form ? 'ok' : 'warn', $form ? __( 'El formulario responde', 'facilo-boton-arrepentimiento' ) : __( 'Algo bloquea el formulario. Revisá tu plugin de seguridad', 'facilo-boton-arrepentimiento' ) );
 		}
 
 		$ran     = (int) get_option( 'bclaro_cron_ran_at', 0 );
 		$cron    = $ran && ( Util::now() - $ran ) <= HOUR_IN_SECONDS + 300;
-		$lines[] = self::line( 'tareas', $cron ? 'ok' : 'warn', $cron ? __( 'Las tareas programadas funcionan', 'boton-de-arrepentimiento' ) : __( 'Las tareas programadas no corren, y sin ellas no se reintentan los correos', 'boton-de-arrepentimiento' ) );
+		$lines[] = self::line( 'tareas', $cron ? 'ok' : 'warn', $cron ? __( 'Las tareas programadas funcionan', 'facilo-boton-arrepentimiento' ) : __( 'Las tareas programadas no corren, y sin ellas no se reintentan los correos', 'facilo-boton-arrepentimiento' ) );
 
-		$lines[] = self::line( 'correo', ! empty( $s['mail_ok'] ) ? 'ok' : 'warn', ! empty( $s['mail_ok'] ) ? __( 'Confirmaste que te llegó el correo de prueba', 'boton-de-arrepentimiento' ) : __( 'Mandate un correo de prueba', 'boton-de-arrepentimiento' ) );
+		$lines[] = self::line( 'correo', ! empty( $s['mail_ok'] ) ? 'ok' : 'warn', ! empty( $s['mail_ok'] ) ? __( 'Confirmaste que te llegó el correo de prueba', 'facilo-boton-arrepentimiento' ) : __( 'Mandate un correo de prueba', 'facilo-boton-arrepentimiento' ) );
 
-		$lines[] = self::line( 'aviso', Notice::on() ? 'ok' : 'warn', Notice::on() ? __( 'El aviso está en tus correos y en el pago', 'boton-de-arrepentimiento' ) : __( 'El aviso está apagado', 'boton-de-arrepentimiento' ) );
+		$lines[] = self::line( 'aviso', Notice::on() ? 'ok' : 'warn', Notice::on() ? __( 'El aviso está en tus correos y en el pago', 'facilo-boton-arrepentimiento' ) : __( 'El aviso está apagado', 'facilo-boton-arrepentimiento' ) );
 
 		if ( $loop || $shut ) {
-			$lines[] = self::line( 'abierto', $shut ? 'warn' : 'ok', $shut ? __( 'Tu sitio pide iniciar sesión o está en mantenimiento', 'boton-de-arrepentimiento' ) : __( 'Tu sitio está abierto al público', 'boton-de-arrepentimiento' ) );
+			$lines[] = self::line( 'abierto', $shut ? 'warn' : 'ok', $shut ? __( 'Tu sitio pide iniciar sesión o está en mantenimiento', 'facilo-boton-arrepentimiento' ) : __( 'Tu sitio está abierto al público', 'facilo-boton-arrepentimiento' ) );
 		}
 
 		$result = array(
@@ -197,26 +197,26 @@ class SiteCheck {
 		}
 		$last = get_option( self::OPTION );
 		echo '<div class="wrap bclaro-wrap bclaro-check">';
-		Admin::title( __( 'Revisión del sitio', 'boton-de-arrepentimiento' ) );
+		Admin::title( __( 'Revisión del sitio', 'facilo-boton-arrepentimiento' ) );
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- message flag only.
 		$msg  = isset( $_GET['msg'] ) ? sanitize_key( wp_unslash( $_GET['msg'] ) ) : '';
 		$msgs = array(
-			'enviado' => array( 'success', sprintf( /* translators: %s: email. */ __( 'Te mandamos un correo de prueba a %s. Cuando te llegue, tocá “Me llegó”.', 'boton-de-arrepentimiento' ), Util::notify_email() ) ),
-			'fallo'   => array( 'error', __( 'Tu sitio no pudo mandar el correo de prueba. Revisá la configuración de correo de tu hosting o usá un plugin de SMTP.', 'boton-de-arrepentimiento' ) ),
-			'llego'   => array( 'success', __( 'Listo, anotamos que te llegó.', 'boton-de-arrepentimiento' ) ),
+			'enviado' => array( 'success', sprintf( /* translators: %s: email. */ __( 'Te mandamos un correo de prueba a %s. Cuando te llegue, tocá “Me llegó”.', 'facilo-boton-arrepentimiento' ), Util::notify_email() ) ),
+			'fallo'   => array( 'error', __( 'Tu sitio no pudo mandar el correo de prueba. Revisá la configuración de correo de tu hosting o usá un plugin de SMTP.', 'facilo-boton-arrepentimiento' ) ),
+			'llego'   => array( 'success', __( 'Listo, anotamos que te llegó.', 'facilo-boton-arrepentimiento' ) ),
 		);
 		if ( isset( $msgs[ $msg ] ) ) {
 			echo '<div class="notice notice-' . esc_attr( $msgs[ $msg ][0] ) . ' is-dismissible"><p>' . esc_html( $msgs[ $msg ][1] ) . '</p></div>';
 		}
 		echo '<div class="box"><div class="bclaro-run">';
-		self::button( 'bclaro_check', __( 'Revisar ahora', 'boton-de-arrepentimiento' ), 'pri' );
+		self::button( 'bclaro_check', __( 'Revisar ahora', 'facilo-boton-arrepentimiento' ), 'pri' );
 		if ( is_array( $last ) && ! empty( $last['at'] ) ) {
 			/* translators: %s: date and time. */
-			echo '<span class="muted">' . esc_html( sprintf( __( 'Última revisión: %s', 'boton-de-arrepentimiento' ), Util::full( (int) $last['at'] ) ) ) . '</span>';
+			echo '<span class="muted">' . esc_html( sprintf( __( 'Última revisión: %s', 'facilo-boton-arrepentimiento' ), Util::full( (int) $last['at'] ) ) ) . '</span>';
 		}
 		echo '</div>';
 		if ( ! is_array( $last ) || empty( $last['lines'] ) ) {
-			echo '<p>' . esc_html__( 'Tocá “Revisar ahora” y miramos tu sitio como lo ve un cliente.', 'boton-de-arrepentimiento' ) . '</p>';
+			echo '<p>' . esc_html__( 'Tocá “Revisar ahora” y miramos tu sitio como lo ve un cliente.', 'facilo-boton-arrepentimiento' ) . '</p>';
 		} else {
 			$warn = 0;
 			echo '<ul class="bclaro-lines">';
@@ -228,27 +228,27 @@ class SiteCheck {
 				echo '<li class="' . esc_attr( $l['state'] ) . '" data-k="' . esc_attr( $l['key'] ) . '"><span class="i" aria-hidden="true">' . esc_html( $icon ) . '</span> <span class="t">' . esc_html( $l['text'] ) . '</span>';
 				if ( 'correo' === $l['key'] && 'ok' !== $l['state'] ) {
 					echo '<span class="mini">';
-					self::button( 'bclaro_test_mail', __( 'Enviar correo de prueba', 'boton-de-arrepentimiento' ) );
-					self::button( 'bclaro_mail_ok', __( 'Me llegó', 'boton-de-arrepentimiento' ) );
+					self::button( 'bclaro_test_mail', __( 'Enviar correo de prueba', 'facilo-boton-arrepentimiento' ) );
+					self::button( 'bclaro_mail_ok', __( 'Me llegó', 'facilo-boton-arrepentimiento' ) );
 					echo '</span>';
 				}
 				if ( 'paginas' === $l['key'] && 'ok' !== $l['state'] ) {
-					echo ' <a class="bclaro-btn" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bclaro_recrear' ), 'bclaro_recrear' ) ) . '">' . esc_html__( 'Volver a crear la página', 'boton-de-arrepentimiento' ) . '</a>';
+					echo ' <a class="bclaro-btn" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bclaro_recrear' ), 'bclaro_recrear' ) ) . '">' . esc_html__( 'Volver a crear la página', 'facilo-boton-arrepentimiento' ) . '</a>';
 				}
 				if ( 'atencion' === $l['key'] && 'ok' !== $l['state'] ) {
-					echo ' <a href="' . esc_url( Util::admin_url( 'bclaro-ajustes', array( 'tab' => 'atencion' ) ) ) . '">' . esc_html__( 'Completar', 'boton-de-arrepentimiento' ) . '</a>';
+					echo ' <a href="' . esc_url( Util::admin_url( 'bclaro-ajustes', array( 'tab' => 'atencion' ) ) ) . '">' . esc_html__( 'Completar', 'facilo-boton-arrepentimiento' ) . '</a>';
 				}
 				echo '</li>';
 			}
 			echo '</ul>';
 			if ( 0 === $warn ) {
-				echo '<p class="bclaro-sum ok">' . esc_html__( 'No encontramos nada para corregir.', 'boton-de-arrepentimiento' ) . '</p>';
+				echo '<p class="bclaro-sum ok">' . esc_html__( 'No encontramos nada para corregir.', 'facilo-boton-arrepentimiento' ) . '</p>';
 			} else {
 				/* translators: %d: number of things to look at. */
-				echo '<p class="bclaro-sum warn">' . esc_html( sprintf( _n( 'Hay %d cosa para mirar.', 'Hay %d cosas para mirar.', $warn, 'boton-de-arrepentimiento' ), $warn ) ) . '</p>';
+				echo '<p class="bclaro-sum warn">' . esc_html( sprintf( _n( 'Hay %d cosa para mirar.', 'Hay %d cosas para mirar.', $warn, 'facilo-boton-arrepentimiento' ), $warn ) ) . '</p>';
 			}
 		}
-		echo '<p class="bclaro-legal">' . esc_html__( 'Esta revisión mira solo lo que el plugin puede ver. No es asesoramiento legal.', 'boton-de-arrepentimiento' ) . '</p>';
+		echo '<p class="bclaro-legal">' . esc_html__( 'Esta revisión mira solo lo que el plugin puede ver. No es asesoramiento legal.', 'facilo-boton-arrepentimiento' ) . '</p>';
 		echo '</div></div>';
 	}
 }

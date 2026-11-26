@@ -1,4 +1,4 @@
-/* Botón Claro form: sends to the public REST route and shows the code. No nonce, so cached pages work. */
+/* Facilo Botón de Arrepentimiento form: sends to the public REST route and shows the code. No nonce, so cached pages work. */
 (function () {
 	'use strict';
 	var T = {
@@ -69,12 +69,11 @@
 			return !bad.length;
 		}
 		function done(j) {
-			var ok = q(box, '.bc-ok'), parts = String(j.code).match(/^(.*-)([^-]+)$/) || ['', '', j.code];
+			var ok = q(box, '.bc-ok'), code = String(j.code || ''), parts = code.match(/^(.*-)([^-]+)$/) || ['', '', code];
 			q(ok, '[data-bc=code1]').textContent = parts[1];
 			q(ok, '[data-bc=code2]').textContent = parts[2];
 			q(ok, '[data-bc=email]').textContent = j.email;
-			q(ok, '.bc-dup').hidden = !j.dup;
-			ok.setAttribute('data-code', j.code);
+			ok.setAttribute('data-code', code);
 			q(box, '.bc-head').hidden = true;
 			form.hidden = true;
 			box.classList.add('bc-done');
@@ -101,7 +100,7 @@
 			}).then(function (r) {
 				return r.json().catch(function () { return {}; });
 			}).then(function (j) {
-				if (j && j.ok && j.code) { done(j); return; }
+				if (j && j.ok) { done(j); return; }
 				if (j && j.error === 'campos' && j.fields) {
 					var first = null;
 					Object.keys(j.fields).forEach(function (k) { var el = mark(k, j.fields[k]); first = first || el; });

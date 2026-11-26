@@ -1,8 +1,8 @@
-# Botón Claro – Botón de arrepentimiento y baja de servicio para WordPress y WooCommerce
+# Facilo Botón de Arrepentimiento y Baja – para WordPress y WooCommerce
 
 **Qué es:** un plugin gratis que suma a tu sitio el "BOTÓN DE ARREPENTIMIENTO" y el "BOTÓN DE BAJA DE SERVICIO" que pide la Disposición 954/2025, con sus formularios y una lista de pedidos.<br>
 **Para quién:** tiendas argentinas en WooCommerce y quienes venden servicios o suscripciones con WordPress, y las agencias que les arman el sitio.<br>
-**Cómo se usa:** 1) descargá el zip de la [última versión](https://github.com/Facilo-es/boton-de-arrepentimiento/releases/latest), 2) subilo en **Plugins → Añadir nuevo → Subir plugin** y activalo, 3) seguí la configuración guiada de 3 minutos.
+**Cómo se usa:** 1) en tu WordPress, andá a **Plugins → Añadir nuevo** y buscá **Facilo Botón de Arrepentimiento** (o abrilo en [wordpress.org](https://wordpress.org/plugins/facilo-boton-arrepentimiento/)), 2) instalalo y activalo, 3) seguí la configuración guiada de 3 minutos.
 
 No decide ni responde los pedidos por vos, y no es asesoramiento legal: la respuesta a cada cliente sigue siendo tuya. Sirve para sitios hechos con WordPress, no para Tiendanube u otras plataformas.
 
@@ -19,7 +19,7 @@ No decide ni responde los pedidos por vos, y no es asesoramiento legal: la respu
 ![Configuración guiada: qué vendés, atención al cliente, botones y listo](docs/4-configuracion-guiada.png)
 <sub><b>Listo en 3 minutos.</b> La configuración guiada arma los botones, las páginas de los formularios y el aviso de derechos.</sub>
 
-![Página de un pedido en Botón Claro Pro, con las horas que quedan para responder y el día 6 de 10](docs/5-pro-pedido.png)
+![Página de un pedido en la versión Pro, con las horas que quedan para responder y el día 6 de 10](docs/5-pro-pedido.png)
 <sub><b>Con Pro: cada pedido, resuelto en un clic.</b> Ves en qué día de los 10 está el pedido, cuántas horas te quedan para responder, y aceptás o devolvés el dinero desde acá. (Esta pantalla es de la versión paga.)</sub>
 
 ## Lo que gana tu tienda
@@ -40,25 +40,27 @@ La versión gratis está completa: sin límites de pedidos y sin funciones bloqu
 - **El código.** Cada pedido recibe un código como `ARR-2026-4F7K9Q` (o `BAJ-…` para una baja), que tu cliente ve en pantalla en el momento y recibe por correo. En tu lista cada pedido muestra cuánto te queda de las 24 horas para responder y, en una baja, de las 72 horas para mandar la constancia.
 
 **¿Se puede pagar en pesos? ¿Cómo se manejan los impuestos?**
-Botón Claro gratis no cobra nada y no toca tus precios ni tus cobros: tu tienda sigue vendiendo en pesos como siempre. Botón Claro Pro se paga en dólares con tarjeta, a través de Freemius, que es quien vende la licencia y se ocupa de los impuestos de la venta. Tu banco puede sumar sus propios impuestos al cobro en dólares.
+La versión gratis no cobra nada y no toca tus precios ni tus cobros: tu tienda sigue vendiendo en pesos como siempre. La versión Pro se paga en dólares con tarjeta, a través de Freemius, que es quien vende la licencia y se ocupa de los impuestos de la venta. Tu banco puede sumar sus propios impuestos al cobro en dólares.
 
 **¿Por qué lo hace un estudio de España?**
-Facilo es un estudio chico de Andalucía, en España. El plugin sigue la norma argentina: lo armamos a partir de la Disposición 954/2025 y la Ley de Defensa del Consumidor, y todos los textos están en castellano rioplatense, con voseo. Botón Claro es una herramienta, no asesoramiento legal: ante cualquier duda, consultá con tu asesor.
+Facilo es un estudio chico de Andalucía, en España. El plugin sigue la norma argentina: lo armamos a partir de la Disposición 954/2025 y la Ley de Defensa del Consumidor, y todos los textos están en castellano rioplatense, con voseo. El plugin es una herramienta, no asesoramiento legal: ante cualquier duda, consultá con tu asesor.
 
 **¿Hay una demo?**
 Todavía no hay una demo en línea. La versión gratis es completa y se instala en un minuto, así que podés probarla en un sitio de prueba o de staging antes de usarla en tu tienda.
 
-## Botón Claro Pro: cada pedido resuelto en un clic
+## Versión Pro: cada pedido resuelto en un clic
 
 Mirá al instante si un pedido está dentro de los 10 días, feriados incluidos. Aceptá, devolvé el dinero y reponé el stock en un clic, respondé con correos listos para cada caso, cancelá suscripciones con su constancia, recibí alertas antes de que venza un plazo y exportá todo a CSV.
 
-**[Comprar Botón Claro Pro](https://checkout.freemius.com/plugin/44794/plan/78947/)**: USD 19 al año para una tienda, o USD 59 al año para tiendas ilimitadas (agencias). Tenés 14 días para recuperar tu dinero. Si dejás de pagar, todo sigue funcionando; solo terminan las actualizaciones y el soporte.
+**[Comprar la versión Pro](https://checkout.freemius.com/plugin/44794/plan/78947/)**: USD 19 al año para una tienda, o USD 59 al año para tiendas ilimitadas (agencias). Tenés 14 días para recuperar tu dinero. Si dejás de pagar, todo sigue funcionando; solo terminan las actualizaciones y el soporte.
 
 ## Requisitos y actualizaciones
 
 Requiere WordPress 6.6 o superior y PHP 7.4 o superior. WooCommerce es opcional.
 
-Por ahora, cada actualización sale como una nueva versión en [Releases](https://github.com/Facilo-es/boton-de-arrepentimiento/releases) (para enterarte, tocá **Watch → Custom → Releases** en esta página). Cuando el plugin esté publicado en wordpress.org, las actualizaciones te van a llegar desde tu WordPress, como las de cualquier plugin.
+El plugin está publicado en [wordpress.org](https://wordpress.org/plugins/facilo-boton-arrepentimiento/), así que las actualizaciones te llegan desde tu WordPress, como las de cualquier plugin. Cada versión también queda en [Releases](https://github.com/Facilo-es/boton-de-arrepentimiento/releases).
+
+Si lo instalaste antes desde el zip de GitHub (versión 1.0.0), primero desactivá esa versión, después instalá y activá la de wordpress.org, y al final borrá la anterior. Tus ajustes y tus pedidos se conservan, salvo que hayas activado la opción de borrar los datos al desinstalar.
 
 ## Quién lo hace
 

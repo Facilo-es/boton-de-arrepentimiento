@@ -2,7 +2,7 @@
 /**
  * Ajustes: six tabs in one option, plus the style gallery and live preview shared with the setup.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -28,12 +28,12 @@ class AdminSettings {
 	 */
 	public static function tabs() {
 		$tabs = array(
-			'botones'     => __( 'Botones', 'boton-de-arrepentimiento' ),
-			'formularios' => __( 'Formularios', 'boton-de-arrepentimiento' ),
-			'atencion'    => __( 'Atención al cliente', 'boton-de-arrepentimiento' ),
-			'correos'     => __( 'Correos', 'boton-de-arrepentimiento' ),
-			'aviso'       => __( 'Aviso de derechos', 'boton-de-arrepentimiento' ),
-			'privacidad'  => __( 'Privacidad', 'boton-de-arrepentimiento' ),
+			'botones'     => __( 'Botones', 'facilo-boton-arrepentimiento' ),
+			'formularios' => __( 'Formularios', 'facilo-boton-arrepentimiento' ),
+			'atencion'    => __( 'Atención al cliente', 'facilo-boton-arrepentimiento' ),
+			'correos'     => __( 'Correos', 'facilo-boton-arrepentimiento' ),
+			'aviso'       => __( 'Aviso de derechos', 'facilo-boton-arrepentimiento' ),
+			'privacidad'  => __( 'Privacidad', 'facilo-boton-arrepentimiento' ),
 		);
 		/**
 		 * Ajustes tabs. Pro adds its own and renders them through bclaro_settings_tab_{slug}.
@@ -93,10 +93,10 @@ class AdminSettings {
 	 * @param string $key   Key.
 	 * @param string $label Label.
 	 * @param array  $s     Settings.
-	 * @param string $attr  Extra attributes, already escaped.
+	 * @param string $place Placement name for the live preview, or ''.
 	 */
-	private static function check( $key, $label, $s, $attr = '' ) {
-		echo '<label class="bclaro-check"><input type="hidden" name="' . esc_attr( $key ) . '" value="0"><input type="checkbox" name="' . esc_attr( $key ) . '" value="1"' . checked( ! empty( $s[ $key ] ), true, false ) . $attr . '> ' . esc_html( $label ) . '</label>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $attr is static.
+	private static function check( $key, $label, $s, $place = '' ) {
+		echo '<label class="bclaro-check"><input type="hidden" name="' . esc_attr( $key ) . '" value="0"><input type="checkbox" name="' . esc_attr( $key ) . '" value="1"' . checked( ! empty( $s[ $key ] ), true, false ) . ( '' !== $place ? ' data-bclaro-place="' . esc_attr( $place ) . '"' : '' ) . '> ' . esc_html( $label ) . '</label>';
 	}
 
 	/**
@@ -110,10 +110,10 @@ class AdminSettings {
 		$tabs = self::tabs();
 		$tab  = self::current();
 		echo '<div class="wrap bclaro-wrap">';
-		Admin::title( __( 'Ajustes', 'boton-de-arrepentimiento' ), '<a class="page-title-action" href="' . esc_url( Util::admin_url( 'bclaro-setup' ) ) . '">' . esc_html__( 'Abrir la configuración guiada', 'boton-de-arrepentimiento' ) . '</a>' );
+		Admin::title( __( 'Ajustes', 'facilo-boton-arrepentimiento' ), '<a class="page-title-action" href="' . esc_url( Util::admin_url( 'bclaro-setup' ) ) . '">' . esc_html__( 'Abrir la configuración guiada', 'facilo-boton-arrepentimiento' ) . '</a>' );
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- message flag only.
 		if ( isset( $_GET['msg'] ) && 'guardado' === sanitize_key( wp_unslash( $_GET['msg'] ) ) ) {
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Guardamos los cambios.', 'boton-de-arrepentimiento' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Guardamos los cambios.', 'facilo-boton-arrepentimiento' ) . '</p></div>';
 		}
 		echo '<nav class="nav-tab-wrapper bclaro-navtabs">';
 		foreach ( $tabs as $slug => $label ) {
@@ -136,12 +136,29 @@ class AdminSettings {
 		echo '<input type="hidden" name="action" value="bclaro_save"><input type="hidden" name="tab" value="' . esc_attr( $tab ) . '">';
 		wp_nonce_field( 'bclaro_save' );
 		call_user_func( array( __CLASS__, 'tab_' . $tab ), $s );
-		echo '<p class="save"><button type="submit" class="bclaro-btn pri">' . esc_html__( 'Guardar cambios', 'boton-de-arrepentimiento' ) . '</button></p>';
+		echo '<p class="save"><button type="submit" class="bclaro-btn pri">' . esc_html__( 'Guardar cambios', 'facilo-boton-arrepentimiento' ) . '</button></p>';
 		echo '</form></div>';
 	}
 
 	/**
-	 * Gallery of styles with the recommended one, and the colour swatches. Shared with the setup.
+	 * The gallery tiles' CSS, one inline style per tile (admin.js swaps each one when the colour changes).
+	 * Hooked from Admin::assets on the settings screen, so nothing prints a style tag itself.
+	 */
+	public static function enqueue_tile_styles() {
+		$s   = Settings::get();
+		$col = Styles::clean_color( $s['color'] );
+		$col = $col ? $col : Styles::recommend()['color'];
+		foreach ( array_keys( Styles::all() ) as $slug ) {
+			$slug   = sanitize_key( $slug );
+			$handle = 'bclaro-tile-css-' . $slug;
+			wp_register_style( $handle, false, array( 'bclaro-admin' ), BCLARO_VERSION );
+			wp_enqueue_style( $handle );
+			wp_add_inline_style( $handle, wp_strip_all_tags( Styles::scope( Styles::css( $slug, $col, $s ), '#bclaro-tile-' . $slug ) ) );
+		}
+	}
+
+	/**
+	 * Style gallery and details.
 	 *
 	 * @param array $s    Settings.
 	 * @param bool  $full Show the reason line and the "back to recommended" link.
@@ -153,21 +170,20 @@ class AdminSettings {
 		$col = $col ? $col : $rec['color'];
 		echo '<input type="hidden" name="style" id="bclaro-style" value="' . esc_attr( $s['style'] ) . '">';
 		echo '<input type="hidden" name="color" id="bclaro-color" value="' . esc_attr( $col ) . '">';
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Estilo', 'boton-de-arrepentimiento' ) . '</h2>';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Estilo', 'facilo-boton-arrepentimiento' ) . '</h2>';
 		if ( $full ) {
-			echo '<div class="rec" data-style="' . esc_attr( $rec['style'] ) . '" data-color="' . esc_attr( $rec['color'] ) . '"><p>' . esc_html( $rec['why'] ) . '</p><button type="button" class="button-link" id="bclaro-volver">' . esc_html__( 'Volver al recomendado', 'boton-de-arrepentimiento' ) . '</button></div>';
+			echo '<div class="rec" data-style="' . esc_attr( $rec['style'] ) . '" data-color="' . esc_attr( $rec['color'] ) . '"><p>' . esc_html( $rec['why'] ) . '</p><button type="button" class="button-link" id="bclaro-volver">' . esc_html__( 'Volver al recomendado', 'facilo-boton-arrepentimiento' ) . '</button></div>';
 		}
-		echo '<div class="gal" role="radiogroup" aria-label="' . esc_attr__( 'Estilo', 'boton-de-arrepentimiento' ) . '">';
+		echo '<div class="gal" role="radiogroup" aria-label="' . esc_attr__( 'Estilo', 'facilo-boton-arrepentimiento' ) . '">';
 		$label = Settings::label( 'arrepentimiento' );
 		foreach ( $all as $slug => $st ) {
 			$slug = sanitize_key( $slug );
 			$on   = $slug === $s['style'];
 			echo '<button type="button" class="st8' . ( $on ? ' on' : '' ) . '" data-e="' . esc_attr( $slug ) . '" role="radio" aria-checked="' . ( $on ? 'true' : 'false' ) . '">';
-			echo '<style id="bclaro-tile-css-' . esc_attr( $slug ) . '">' . wp_strip_all_tags( Styles::scope( Styles::css( $slug, $col, $s ), '#bclaro-tile-' . $slug ) ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS built by the plugin from its own files and a cleaned hex colour.
 			echo '<span class="mu" id="bclaro-tile-' . esc_attr( $slug ) . '"><span class="bclaro-franja"><span class="bclaro-b">' . esc_html( $label ) . '</span></span></span>';
 			echo '<b>' . esc_html( isset( $st['label'] ) ? $st['label'] : $slug ) . '</b>';
 			if ( $slug === $rec['style'] ) {
-				echo '<span class="badge">' . esc_html__( 'Recomendado para tu tienda', 'boton-de-arrepentimiento' ) . '</span>';
+				echo '<span class="badge">' . esc_html__( 'Recomendado para tu tienda', 'facilo-boton-arrepentimiento' ) . '</span>';
 			}
 			echo '</button>';
 		}
@@ -179,12 +195,12 @@ class AdminSettings {
 			$pal = array_slice( $pal, 0, 6 );
 		}
 		$msg = Admin::color_message( $col );
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Detalles', 'boton-de-arrepentimiento' ) . '</h2>';
-		echo '<div class="fila"><span>' . esc_html__( 'Color', 'boton-de-arrepentimiento' ) . '</span><div class="sws">';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Detalles', 'facilo-boton-arrepentimiento' ) . '</h2>';
+		echo '<div class="fila"><span>' . esc_html__( 'Color', 'facilo-boton-arrepentimiento' ) . '</span><div class="sws">';
 		foreach ( $pal as $c ) {
 			echo '<button type="button" class="sw' . ( $c === $col ? ' on' : '' ) . '" data-c="' . esc_attr( $c ) . '" style="background:' . esc_attr( $c ) . '" title="' . esc_attr( $c ) . '"><span class="screen-reader-text">' . esc_html( $c ) . '</span></button>';
 		}
-		echo '<label class="otro"><input type="color" id="bclaro-otro" value="' . esc_attr( $col ) . '"> ' . esc_html__( 'Otro color', 'boton-de-arrepentimiento' ) . '</label></div></div>';
+		echo '<label class="otro"><input type="color" id="bclaro-otro" value="' . esc_attr( $col ) . '"> ' . esc_html__( 'Otro color', 'facilo-boton-arrepentimiento' ) . '</label></div></div>';
 		echo '<p class="lee' . ( $msg['bad'] ? ' mal' : '' ) . '" id="bclaro-lee" aria-live="polite">' . esc_html( $msg['text'] ) . '</p>';
 	}
 
@@ -193,8 +209,8 @@ class AdminSettings {
 	 */
 	public static function preview_box() {
 		$url = add_query_arg( 'bclaro_vista', '1', home_url( '/' ) );
-		echo '<div class="bclaro-box pv"><h2>' . esc_html__( 'Así se ve en tu tienda', 'boton-de-arrepentimiento' ) . ' <span class="seg" data-k="ver"><button type="button" class="on" data-v="pc">' . esc_html__( 'Computadora', 'boton-de-arrepentimiento' ) . '</button><button type="button" data-v="cel">' . esc_html__( 'Celular', 'boton-de-arrepentimiento' ) . '</button></span></h2>';
-		echo '<div class="vp" id="bclaro-vp"><iframe id="bclaro-frame" src="' . esc_url( $url ) . '" title="' . esc_attr__( 'Vista previa', 'boton-de-arrepentimiento' ) . '" tabindex="-1" loading="lazy"></iframe></div></div>';
+		echo '<div class="bclaro-box pv"><h2>' . esc_html__( 'Así se ve en tu tienda', 'facilo-boton-arrepentimiento' ) . ' <span class="seg" data-k="ver"><button type="button" class="on" data-v="pc">' . esc_html__( 'Computadora', 'facilo-boton-arrepentimiento' ) . '</button><button type="button" data-v="cel">' . esc_html__( 'Celular', 'facilo-boton-arrepentimiento' ) . '</button></span></h2>';
+		echo '<div class="vp" id="bclaro-vp"><iframe id="bclaro-frame" src="' . esc_url( $url ) . '" title="' . esc_attr__( 'Vista previa', 'facilo-boton-arrepentimiento' ) . '" tabindex="-1" loading="lazy"></iframe></div></div>';
 	}
 
 	/**
@@ -205,12 +221,12 @@ class AdminSettings {
 	private static function tab_botones( $s ) {
 		echo '<div class="cols"><div>';
 		self::style_controls( $s, true );
-		echo '<div class="fila"><span>' . esc_html__( 'Dónde', 'boton-de-arrepentimiento' ) . '</span><div class="chk">';
-		self::check( 'strip', __( 'Franja al pie', 'boton-de-arrepentimiento' ), $s, ' data-bclaro-place="franja"' );
-		self::check( 'pill', __( 'Botón flotante', 'boton-de-arrepentimiento' ), $s, ' data-bclaro-place="pill"' );
+		echo '<div class="fila"><span>' . esc_html__( 'Dónde', 'facilo-boton-arrepentimiento' ) . '</span><div class="chk">';
+		self::check( 'strip', __( 'Franja al pie', 'facilo-boton-arrepentimiento' ), $s, 'franja' );
+		self::check( 'pill', __( 'Botón flotante', 'facilo-boton-arrepentimiento' ), $s, 'pill' );
 		echo '</div></div>';
 		if ( empty( $s['strip'] ) && empty( $s['pill'] ) ) {
-			echo '<p class="bclaro-warn">' . esc_html__( 'Apagaste las dos posiciones. Si no pusiste los botones con un bloque, tus clientes no los van a ver.', 'boton-de-arrepentimiento' ) . '</p>';
+			echo '<p class="bclaro-warn">' . esc_html__( 'Apagaste las dos posiciones. Si no pusiste los botones con un bloque, tus clientes no los van a ver.', 'facilo-boton-arrepentimiento' ) . '</p>';
 		}
 		/**
 		 * Extra controls at the end of the Botones box (Pro's Detalles).
@@ -220,17 +236,17 @@ class AdminSettings {
 		do_action( 'bclaro_settings_after_botones', $s );
 		echo '</div>';
 
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Nombres', 'boton-de-arrepentimiento' ) . '</h2>';
-		self::check( 'baja', __( 'Mostrar también el botón de baja de servicio', 'boton-de-arrepentimiento' ), $s, ' data-bclaro-place="baja"' );
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Nombres', 'facilo-boton-arrepentimiento' ) . '</h2>';
+		self::check( 'baja', __( 'Mostrar también el botón de baja de servicio', 'facilo-boton-arrepentimiento' ), $s, 'baja' );
 		$r = Util::rules();
 		foreach ( array( 'arrepentimiento', 'baja' ) as $type ) {
 			self::field( 'label_' . $type, Util::type_label( $type ), $s, array( 'placeholder' => $r['labels'][ $type ] ) );
 			if ( Settings::label_changed( $type ) ) {
 				/* translators: %s: exact legal name. */
-				echo '<p class="bclaro-warn">' . esc_html( sprintf( __( 'Cambiaste el nombre. La norma lo llama “%s”: te recomendamos dejarlo así.', 'boton-de-arrepentimiento' ), $r['labels'][ $type ] ) ) . '</p>';
+				echo '<p class="bclaro-warn">' . esc_html( sprintf( __( 'Cambiaste el nombre. La norma lo llama “%s”: te recomendamos dejarlo así.', 'facilo-boton-arrepentimiento' ), $r['labels'][ $type ] ) ) . '</p>';
 			}
 		}
-		echo '<p class="description">' . esc_html__( 'También podés ponerlos en cualquier página con el bloque “Botones de Botón Claro” o con [boton_arrepentimiento] y [boton_baja].', 'boton-de-arrepentimiento' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'También podés ponerlos en cualquier página con el bloque “Botones de arrepentimiento y baja” o con [facilo_boton_arrepentimiento] y [facilo_boton_baja].', 'facilo-boton-arrepentimiento' ) . '</p>';
 		echo '</div></div><div>';
 		self::preview_box();
 		echo '</div></div>';
@@ -242,7 +258,7 @@ class AdminSettings {
 	 * @param array $s Settings.
 	 */
 	private static function tab_formularios( $s ) {
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Páginas de los formularios', 'boton-de-arrepentimiento' ) . '</h2><ul class="bclaro-pages">';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Páginas de los formularios', 'facilo-boton-arrepentimiento' ) . '</h2><ul class="bclaro-pages">';
 		$missing = Pages::missing();
 		foreach ( array( 'arrepentimiento', 'baja' ) as $type ) {
 			if ( ! Pages::needed( $type ) ) {
@@ -251,25 +267,25 @@ class AdminSettings {
 			$id = (int) $s[ 'page_' . $type ];
 			echo '<li><b>' . esc_html( Util::type_label( $type ) ) . ':</b> ';
 			if ( in_array( $type, $missing, true ) ) {
-				echo '<span class="bclaro-warn-inline">' . esc_html__( 'Falta la página del formulario. Hasta que vuelva, el botón no se muestra.', 'boton-de-arrepentimiento' ) . '</span>';
+				echo '<span class="bclaro-warn-inline">' . esc_html__( 'Falta la página del formulario. Hasta que vuelva, el botón no se muestra.', 'facilo-boton-arrepentimiento' ) . '</span>';
 			} else {
-				echo '<a href="' . esc_url( $s[ 'url_' . $type ] ) . '" target="_blank" rel="noopener">' . esc_html( $s[ 'url_' . $type ] ) . '</a> · <a href="' . esc_url( (string) get_edit_post_link( $id ) ) . '">' . esc_html__( 'Editar', 'boton-de-arrepentimiento' ) . '</a>';
+				echo '<a href="' . esc_url( $s[ 'url_' . $type ] ) . '" target="_blank" rel="noopener">' . esc_html( $s[ 'url_' . $type ] ) . '</a> · <a href="' . esc_url( (string) get_edit_post_link( $id ) ) . '">' . esc_html__( 'Editar', 'facilo-boton-arrepentimiento' ) . '</a>';
 			}
 			echo '</li>';
 		}
 		echo '</ul>';
 		if ( $missing ) {
-			echo '<p><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bclaro_recrear' ), 'bclaro_recrear' ) ) . '">' . esc_html__( 'Volver a crear la página', 'boton-de-arrepentimiento' ) . '</a></p>';
+			echo '<p><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bclaro_recrear' ), 'bclaro_recrear' ) ) . '">' . esc_html__( 'Volver a crear la página', 'facilo-boton-arrepentimiento' ) . '</a></p>';
 		}
-		echo '<p class="description">' . esc_html__( 'Si querés el formulario en otra página, usá el bloque “Formulario de Botón Claro” o [boton_claro_formulario tipo="arrepentimiento"].', 'boton-de-arrepentimiento' ) . '</p></div>';
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Texto bajo el formulario de arrepentimiento', 'boton-de-arrepentimiento' ) . '</h2>';
+		echo '<p class="description">' . esc_html__( 'Si querés el formulario en otra página, usá el bloque “Formulario de arrepentimiento o baja” o [facilo_arrepentimiento_formulario tipo="arrepentimiento"].', 'facilo-boton-arrepentimiento' ) . '</p></div>';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Texto bajo el formulario de arrepentimiento', 'facilo-boton-arrepentimiento' ) . '</h2>';
 		self::field(
 			'rights_text',
-			__( 'Tus derechos, en palabras simples', 'boton-de-arrepentimiento' ),
+			__( 'Tus derechos, en palabras simples', 'facilo-boton-arrepentimiento' ),
 			$s,
 			array(
 				'rows' => 7,
-				'help' => __( 'Usá **así** para negrita. Dejá una línea en blanco entre párrafos.', 'boton-de-arrepentimiento' ),
+				'help' => __( 'Usá **así** para negrita. Dejá una línea en blanco entre párrafos.', 'facilo-boton-arrepentimiento' ),
 			)
 		);
 		do_action( 'bclaro_settings_after_formularios', $s ); // phpcs:ignore WordPress.NamingConventions.ValidHookName -- documented in the hooks contract.
@@ -282,7 +298,7 @@ class AdminSettings {
 	 * @param array $s Settings.
 	 */
 	private static function tab_atencion( $s ) {
-		echo '<div class="bclaro-box"><h2>' . esc_html__( '¿Cómo te contactan tus clientes?', 'boton-de-arrepentimiento' ) . '</h2><p>' . esc_html__( 'Estos datos se muestran junto a los botones.', 'boton-de-arrepentimiento' ) . '</p>';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( '¿Cómo te contactan tus clientes?', 'facilo-boton-arrepentimiento' ) . '</h2><p>' . esc_html__( 'Estos datos se muestran junto a los botones.', 'facilo-boton-arrepentimiento' ) . '</p>';
 		self::service_fields( $s );
 		do_action( 'bclaro_settings_after_atencion', $s ); // phpcs:ignore WordPress.NamingConventions.ValidHookName -- documented in the hooks contract.
 		echo '</div>';
@@ -296,22 +312,22 @@ class AdminSettings {
 	public static function service_fields( $s ) {
 		self::field(
 			'hours',
-			__( 'Horario de atención', 'boton-de-arrepentimiento' ),
+			__( 'Horario de atención', 'facilo-boton-arrepentimiento' ),
 			$s,
 			array(
-				'placeholder' => __( 'Lunes a viernes de 9 a 17', 'boton-de-arrepentimiento' ),
-				'help'        => __( 'Si atendés solo por teléfono o por internet, la Disposición 954/2025 pide al menos 8 horas en días hábiles, de lunes a viernes.', 'boton-de-arrepentimiento' ),
+				'placeholder' => __( 'Lunes a viernes de 9 a 17', 'facilo-boton-arrepentimiento' ),
+				'help'        => __( 'Si atendés solo por teléfono o por internet, la Disposición 954/2025 pide al menos 8 horas en días hábiles, de lunes a viernes.', 'facilo-boton-arrepentimiento' ),
 			)
 		);
-		self::field( 'phone', __( 'Teléfono', 'boton-de-arrepentimiento' ), $s, array( 'type' => 'tel' ) );
-		self::field( 'email', __( 'Correo de atención', 'boton-de-arrepentimiento' ), $s, array( 'type' => 'email' ) );
-		self::field( 'claims', __( 'Otro canal para reclamos', 'boton-de-arrepentimiento' ), $s, array( 'placeholder' => __( 'WhatsApp, o un enlace', 'boton-de-arrepentimiento' ) ) );
-		self::field( 'area', __( 'Área responsable', 'boton-de-arrepentimiento' ), $s, array( 'placeholder' => __( 'Atención al cliente', 'boton-de-arrepentimiento' ) ) );
+		self::field( 'phone', __( 'Teléfono', 'facilo-boton-arrepentimiento' ), $s, array( 'type' => 'tel' ) );
+		self::field( 'email', __( 'Correo de atención', 'facilo-boton-arrepentimiento' ), $s, array( 'type' => 'email' ) );
+		self::field( 'claims', __( 'Otro canal para reclamos', 'facilo-boton-arrepentimiento' ), $s, array( 'placeholder' => __( 'WhatsApp, o un enlace', 'facilo-boton-arrepentimiento' ) ) );
+		self::field( 'area', __( 'Área responsable', 'facilo-boton-arrepentimiento' ), $s, array( 'placeholder' => __( 'Atención al cliente', 'facilo-boton-arrepentimiento' ) ) );
 		$n = $s;
 		if ( '' === (string) $n['notify'] ) {
 			$n['notify'] = (string) get_option( 'admin_email' );
 		}
-		self::field( 'notify', __( 'Correo donde recibís los avisos', 'boton-de-arrepentimiento' ), $n, array( 'type' => 'email' ) );
+		self::field( 'notify', __( 'Correo donde recibís los avisos', 'facilo-boton-arrepentimiento' ), $n, array( 'type' => 'email' ) );
 	}
 
 	/**
@@ -320,18 +336,18 @@ class AdminSettings {
 	 * @param array $s Settings.
 	 */
 	private static function tab_correos( $s ) {
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Correos', 'boton-de-arrepentimiento' ) . '</h2>';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Correos', 'facilo-boton-arrepentimiento' ) . '</h2>';
 		self::field(
 			'notify',
-			__( 'Correo donde recibís los avisos', 'boton-de-arrepentimiento' ),
+			__( 'Correo donde recibís los avisos', 'facilo-boton-arrepentimiento' ),
 			$s,
 			array(
 				'type' => 'email',
-				'help' => __( 'Te avisamos acá cuando llega un pedido, y si no pudimos mandarle el código a un cliente.', 'boton-de-arrepentimiento' ),
+				'help' => __( 'Te avisamos acá cuando llega un pedido, y si no pudimos mandarle el código a un cliente.', 'facilo-boton-arrepentimiento' ),
 			)
 		);
-		echo '<p class="description">' . esc_html__( 'Los clientes reciben su código al instante, con tu correo de atención para responder. Si un envío falla, lo reintentamos solos durante el día.', 'boton-de-arrepentimiento' ) . '</p>';
-		echo '<p><a class="button" href="' . esc_url( Util::admin_url( 'bclaro-revision' ) ) . '">' . esc_html__( 'Enviar correo de prueba', 'boton-de-arrepentimiento' ) . '</a></p>';
+		echo '<p class="description">' . esc_html__( 'Los clientes reciben su código al instante, con tu correo de atención para responder. Si un envío falla, lo reintentamos solos durante el día.', 'facilo-boton-arrepentimiento' ) . '</p>';
+		echo '<p><a class="button" href="' . esc_url( Util::admin_url( 'bclaro-revision' ) ) . '">' . esc_html__( 'Enviar correo de prueba', 'facilo-boton-arrepentimiento' ) . '</a></p>';
 		do_action( 'bclaro_settings_after_correos', $s ); // phpcs:ignore WordPress.NamingConventions.ValidHookName -- documented in the hooks contract.
 		echo '</div>';
 	}
@@ -342,19 +358,19 @@ class AdminSettings {
 	 * @param array $s Settings.
 	 */
 	private static function tab_aviso( $s ) {
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Aviso de derechos', 'boton-de-arrepentimiento' ) . '</h2>';
-		self::check( 'notice_on', __( 'Mostrar el aviso en los correos de pedido y en el pago', 'boton-de-arrepentimiento' ), $s );
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Aviso de derechos', 'facilo-boton-arrepentimiento' ) . '</h2>';
+		self::check( 'notice_on', __( 'Mostrar el aviso en los correos de pedido y en el pago', 'facilo-boton-arrepentimiento' ), $s );
 		self::field(
 			'notice_text',
-			__( 'Texto del aviso', 'boton-de-arrepentimiento' ),
+			__( 'Texto del aviso', 'facilo-boton-arrepentimiento' ),
 			$s,
 			array(
 				'rows' => 4,
-				'help' => __( '{enlace} se cambia por el enlace al formulario. También podés ponerlo en facturas o contratos con [boton_claro_aviso].', 'boton-de-arrepentimiento' ),
+				'help' => __( '{enlace} se cambia por el enlace al formulario. También podés ponerlo en facturas o contratos con [facilo_arrepentimiento_aviso].', 'facilo-boton-arrepentimiento' ),
 			)
 		);
 		if ( ! Util::woo() ) {
-			echo '<p class="description">' . esc_html__( 'Sin WooCommerce, el aviso se muestra solo donde pongas [boton_claro_aviso].', 'boton-de-arrepentimiento' ) . '</p>';
+			echo '<p class="description">' . esc_html__( 'Sin WooCommerce, el aviso se muestra solo donde pongas [facilo_arrepentimiento_aviso].', 'facilo-boton-arrepentimiento' ) . '</p>';
 		}
 		do_action( 'bclaro_settings_after_aviso', $s ); // phpcs:ignore WordPress.NamingConventions.ValidHookName -- documented in the hooks contract.
 		echo '</div>';
@@ -366,26 +382,102 @@ class AdminSettings {
 	 * @param array $s Settings.
 	 */
 	private static function tab_privacidad( $s ) {
-		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Privacidad', 'boton-de-arrepentimiento' ) . '</h2>';
+		echo '<div class="bclaro-box"><h2>' . esc_html__( 'Privacidad', 'facilo-boton-arrepentimiento' ) . '</h2>';
 		self::field(
 			'retention_years',
-			__( 'Años que guardamos los datos del cliente después de cerrar un pedido', 'boton-de-arrepentimiento' ),
+			__( 'Años que guardamos los datos del cliente después de cerrar un pedido', 'facilo-boton-arrepentimiento' ),
 			$s,
 			array(
 				'type' => 'number',
-				'help' => __( 'Tres años es el plazo en que prescriben las sanciones de la Ley 24.240. Después se borran los datos personales, y quedan el código y las fechas.', 'boton-de-arrepentimiento' ),
+				'help' => __( 'Tres años es el plazo en que prescriben las sanciones de la Ley 24.240. Después se borran los datos personales, y quedan el código y las fechas.', 'facilo-boton-arrepentimiento' ),
 			)
 		);
-		self::check( 'delete_on_uninstall', __( 'Borrar todos los datos al desinstalar', 'boton-de-arrepentimiento' ), $s );
-		echo '<p class="description">' . esc_html__( 'Las páginas de los formularios quedan siempre.', 'boton-de-arrepentimiento' ) . '</p>';
+		self::check( 'delete_on_uninstall', __( 'Borrar todos los datos al desinstalar', 'facilo-boton-arrepentimiento' ), $s );
+		echo '<p class="description">' . esc_html__( 'Las páginas de los formularios quedan siempre.', 'facilo-boton-arrepentimiento' ) . '</p>';
 		do_action( 'bclaro_settings_after_privacidad', $s ); // phpcs:ignore WordPress.NamingConventions.ValidHookName -- documented in the hooks contract.
 		echo '</div>';
 	}
 
 	/**
+	 * Every field the settings, setup and preview forms may post, with how it is cleaned when read.
+	 * Anything else in the request is ignored.
+	 *
+	 * @return array Field name => 'text', 'textarea', 'key', 'int', 'flag', 'email' or 'color'.
+	 */
+	public static function input_fields() {
+		$fields = array(
+			'sells'                 => 'key',
+			'style'                 => 'key',
+			'color'                 => 'color',
+			'strip'                 => 'flag',
+			'pill'                  => 'flag',
+			'baja'                  => 'flag',
+			'label_arrepentimiento' => 'text',
+			'label_baja'            => 'text',
+			'rights_text'           => 'textarea',
+			'hours'                 => 'text',
+			'phone'                 => 'text',
+			'claims'                => 'text',
+			'area'                  => 'text',
+			'email'                 => 'email',
+			'notify'                => 'email',
+			'notice_on'             => 'flag',
+			'notice_text'           => 'textarea',
+			'retention_years'       => 'int',
+			'delete_on_uninstall'   => 'flag',
+		);
+		/**
+		 * Fields the settings forms may post. Pro adds its own here.
+		 *
+		 * @param array $fields Field name => cleaning type.
+		 */
+		return (array) apply_filters( 'bclaro_settings_input_fields', $fields );
+	}
+
+	/**
+	 * The allowed fields of the current POST, each cleaned as it is read. Callers check the nonce and capability first.
+	 *
+	 * @return array
+	 */
+	public static function posted() {
+		$out = array();
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- every caller checks its nonce before calling this.
+		foreach ( self::input_fields() as $key => $type ) {
+			$key = (string) $key;
+			if ( ! isset( $_POST[ $key ] ) || is_array( $_POST[ $key ] ) ) {
+				continue;
+			}
+			switch ( $type ) {
+				case 'textarea':
+					$out[ $key ] = sanitize_textarea_field( wp_unslash( $_POST[ $key ] ) );
+					break;
+				case 'key':
+					$out[ $key ] = sanitize_key( wp_unslash( $_POST[ $key ] ) );
+					break;
+				case 'int':
+					$out[ $key ] = absint( wp_unslash( $_POST[ $key ] ) );
+					break;
+				case 'flag':
+					$out[ $key ] = empty( $_POST[ $key ] ) ? 0 : 1;
+					break;
+				case 'email':
+					$out[ $key ] = sanitize_email( wp_unslash( $_POST[ $key ] ) );
+					break;
+				case 'color':
+					$out[ $key ] = (string) sanitize_hex_color( wp_unslash( $_POST[ $key ] ) );
+					break;
+				default:
+					$out[ $key ] = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
+			}
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+		return $out;
+	}
+
+	/**
 	 * Clean the posted fields of one tab.
 	 *
-	 * @param array  $raw Raw (unslashed) post.
+	 * @param array  $raw Fields from posted(), already cleaned when read.
 	 * @param string $tab Tab.
 	 * @return array
 	 */
@@ -449,10 +541,10 @@ class AdminSettings {
 				break;
 		}
 		/**
-		 * Clean the settings of a tab. Pro adds its own keys from the raw post.
+		 * Clean the settings of a tab. Pro adds its own keys from the posted fields.
 		 *
 		 * @param array  $clean Clean values.
-		 * @param array  $raw   Raw post, unslashed.
+		 * @param array  $raw   Allowed posted fields from posted(), each already cleaned.
 		 * @param string $tab   Tab slug.
 		 */
 		return (array) apply_filters( 'bclaro_sanitize_settings', $clean, $raw, $tab );
@@ -463,15 +555,14 @@ class AdminSettings {
 	 */
 	public static function save() {
 		if ( ! current_user_can( Util::cap() ) ) {
-			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'boton-de-arrepentimiento' ), 403 );
+			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'facilo-boton-arrepentimiento' ), 403 );
 		}
 		check_admin_referer( 'bclaro_save' );
 		$tab = isset( $_POST['tab'] ) ? sanitize_key( wp_unslash( $_POST['tab'] ) ) : '';
 		if ( ! isset( self::tabs()[ $tab ] ) ) {
-			wp_die( esc_html__( 'No pudimos hacer ese cambio.', 'boton-de-arrepentimiento' ), 400 );
+			wp_die( esc_html__( 'No pudimos hacer ese cambio.', 'facilo-boton-arrepentimiento' ), 400 );
 		}
-		$raw   = wp_unslash( $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- every key is sanitized in sanitize().
-		$clean = self::sanitize( (array) $raw, $tab );
+		$clean = self::sanitize( self::posted(), $tab );
 		Settings::update( $clean );
 		if ( 'botones' === $tab && ! empty( $clean['baja'] ) && get_option( 'bclaro_setup_done' ) && in_array( 'baja', Pages::missing(), true ) ) {
 			Pages::ensure( 'baja' );

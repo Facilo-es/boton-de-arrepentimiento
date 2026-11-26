@@ -2,7 +2,7 @@
 /**
  * Requests and their add-only timeline, in the plugin's own tables.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -17,7 +17,10 @@ class Requests {
 	/**
 	 * Create a request. Returns the row, or a WP_Error when the database write fails.
 	 *
-	 * @param array $data Clean fields: type, name, email, phone, order_ref, scope, service, detail, message, is_test.
+	 * A repeat (repeat_of set to the earlier request's ID) is stored as its own request with its own
+	 * code, already closed with the status repetido, so it never adds a second deadline.
+	 *
+	 * @param array $data Clean fields: type, name, email, phone, order_ref, scope, service, detail, message, is_test, and optionally repeat_of.
 	 * @return object|\WP_Error
 	 */
 	public static function create( $data ) {
@@ -52,6 +55,12 @@ class Requests {
 		if ( $order ) {
 			$row['order_id'] = (int) $order;
 		}
+		$repeat = ! $test && ! empty( $data['repeat_of'] ) ? (int) $data['repeat_of'] : 0;
+		if ( $repeat ) {
+			$row['repeat_of'] = $repeat;
+			$row['status']    = 'repetido';
+			$row['closed_at'] = $row['created_at'];
+		}
 		$suppress = $wpdb->suppress_errors( true );
 		$id       = 0;
 		for ( $try = 0; $try < 3 && ! $id; $try++ ) {
@@ -69,6 +78,11 @@ class Requests {
 		}
 		self::event( $id, 'recibido' );
 		$req = self::get( $id );
+		if ( $repeat ) {
+			$first = self::get( $repeat );
+			self::event( $id, 'repite', $first ? (string) $first->code : '' );
+			self::event( $repeat, 'repetido', (string) $req->code );
+		}
 		/**
 		 * A request was stored, with its first event.
 		 *
@@ -117,7 +131,7 @@ class Requests {
 		$since = Util::mysql( Util::now() - 15 * MINUTE_IN_SECONDS );
 		return $wpdb->get_row( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
-				'SELECT * FROM %i WHERE type = %s AND email = %s AND order_ref = %s AND created_at >= %s AND is_test = 0 AND status <> %s ORDER BY id ASC LIMIT 1',
+				'SELECT * FROM %i WHERE type = %s AND email = %s AND order_ref = %s AND created_at >= %s AND is_test = 0 AND repeat_of IS NULL AND status <> %s ORDER BY id ASC LIMIT 1',
 				$t['requests'],
 				$type,
 				$email,
@@ -194,33 +208,39 @@ class Requests {
 	public static function event_label( $e ) {
 		switch ( $e->kind ) {
 			case 'recibido':
-				return __( 'Pedido recibido', 'boton-de-arrepentimiento' );
+				return __( 'Pedido recibido', 'facilo-boton-arrepentimiento' );
 			case 'codigo_enviado':
-				return __( 'Código enviado', 'boton-de-arrepentimiento' );
+				return __( 'Código enviado', 'facilo-boton-arrepentimiento' );
 			case 'codigo_fallido':
-				return __( 'No pudimos enviar el código por correo.', 'boton-de-arrepentimiento' );
+				return __( 'No pudimos enviar el código por correo.', 'facilo-boton-arrepentimiento' );
 			case 'codigo_rendido':
-				return __( 'No pudimos enviar el código', 'boton-de-arrepentimiento' );
+				return __( 'No pudimos enviar el código', 'facilo-boton-arrepentimiento' );
 			case 'aviso_fallido':
-				return __( 'No pudimos mandarte el aviso por correo', 'boton-de-arrepentimiento' );
+				return __( 'No pudimos mandarte el aviso por correo', 'facilo-boton-arrepentimiento' );
 			case 'aviso_enviado':
-				return __( 'Aviso al dueño enviado', 'boton-de-arrepentimiento' );
+				return __( 'Aviso al dueño enviado', 'facilo-boton-arrepentimiento' );
 			case 'estado':
 				$st = Util::statuses();
 				/* translators: %s: status. */
-				return sprintf( __( 'Estado: %s', 'boton-de-arrepentimiento' ), isset( $st[ $e->note ] ) ? $st[ $e->note ] : $e->note );
+				return sprintf( __( 'Estado: %s', 'facilo-boton-arrepentimiento' ), isset( $st[ $e->note ] ) ? $st[ $e->note ] : $e->note );
 			case 'respondido':
 				$u = $e->actor ? get_userdata( (int) $e->actor ) : false;
 				/* translators: %s: user name. */
-				return sprintf( __( 'Respondido por %s', 'boton-de-arrepentimiento' ), $u ? $u->display_name : '—' );
+				return sprintf( __( 'Respondido por %s', 'facilo-boton-arrepentimiento' ), $u ? $u->display_name : '—' );
 			case 'constancia':
-				return __( 'Constancia enviada', 'boton-de-arrepentimiento' );
+				return __( 'Constancia enviada', 'facilo-boton-arrepentimiento' );
 			case 'reintento':
-				return __( 'Reintento de envío', 'boton-de-arrepentimiento' );
+				return __( 'Reintento de envío', 'facilo-boton-arrepentimiento' );
 			case 'datos_borrados':
-				return __( 'Datos personales borrados', 'boton-de-arrepentimiento' );
+				return __( 'Datos personales borrados', 'facilo-boton-arrepentimiento' );
+			case 'repite':
+				/* translators: %s: code of the earlier request. */
+				return sprintf( __( 'Repite el pedido %s: lo atendés ahí', 'facilo-boton-arrepentimiento' ), $e->note );
+			case 'repetido':
+				/* translators: %s: code of the repeated request. */
+				return sprintf( __( 'El cliente lo volvió a enviar: %s', 'facilo-boton-arrepentimiento' ), $e->note );
 			case 'prueba':
-				return __( 'Pedido de prueba: solo te llegó a vos', 'boton-de-arrepentimiento' );
+				return __( 'Pedido de prueba: solo te llegó a vos', 'facilo-boton-arrepentimiento' );
 		}
 		/**
 		 * Words for an event kind Free doesn't know (Pro's own kinds).
@@ -245,7 +265,7 @@ class Requests {
 			return false;
 		}
 		$cols = array( 'status' => $status );
-		if ( in_array( $status, array( 'resuelto', 'no_corresponde', 'spam' ), true ) ) {
+		if ( in_array( $status, array( 'resuelto', 'no_corresponde', 'repetido', 'spam' ), true ) ) {
 			$cols['closed_at'] = $req->closed_at ? $req->closed_at : Util::mysql();
 		} else {
 			$cols['closed_at'] = null;
@@ -408,7 +428,7 @@ class Requests {
 					SUM( status IN ('nuevo','en_curso') AND is_test = 0 ) AS open_n,
 					SUM( status IN ('nuevo','en_curso') AND is_test = 0 AND ( ( replied_at IS NULL AND reply_due_at < %s ) OR ( type = 'baja' AND proof_sent_at IS NULL AND proof_due_at < %s ) ) ) AS late_n,
 					SUM( status IN ('nuevo','en_curso') AND is_test = 0 AND replied_at IS NULL AND reply_due_at >= %s AND reply_due_at < %s ) AS soon_n,
-					SUM( created_at >= %s AND is_test = 0 AND status <> 'spam' ) AS week_n
+					SUM( created_at >= %s AND is_test = 0 AND status NOT IN ('spam','repetido') ) AS week_n
 				FROM %i",
 				$now,
 				$now,
@@ -437,7 +457,7 @@ class Requests {
 		if ( $done ) {
 			return array(
 				'state' => 'done',
-				'text'  => __( 'Respondido', 'boton-de-arrepentimiento' ),
+				'text'  => __( 'Respondido', 'facilo-boton-arrepentimiento' ),
 			);
 		}
 		if ( ! $due ) {
@@ -448,14 +468,14 @@ class Requests {
 			$h = (int) ceil( $diff / HOUR_IN_SECONDS );
 			return array(
 				'state' => $diff < 6 * HOUR_IN_SECONDS ? 'soon' : 'ok',
-				'text'  => 1 === $h ? __( 'Queda 1 hora', 'boton-de-arrepentimiento' ) : sprintf( /* translators: %d: hours. */ __( 'Quedan %d horas', 'boton-de-arrepentimiento' ), $h ),
+				'text'  => 1 === $h ? __( 'Queda 1 hora', 'facilo-boton-arrepentimiento' ) : sprintf( /* translators: %d: hours. */ __( 'Quedan %d horas', 'facilo-boton-arrepentimiento' ), $h ),
 				'hours' => $h,
 			);
 		}
 		$h = max( 1, (int) floor( -$diff / HOUR_IN_SECONDS ) );
 		return array(
 			'state' => 'late',
-			'text'  => 1 === $h ? __( 'Vencido hace 1 hora', 'boton-de-arrepentimiento' ) : sprintf( /* translators: %d: hours. */ __( 'Vencido hace %d horas', 'boton-de-arrepentimiento' ), $h ),
+			'text'  => 1 === $h ? __( 'Vencido hace 1 hora', 'facilo-boton-arrepentimiento' ) : sprintf( /* translators: %d: hours. */ __( 'Vencido hace %d horas', 'facilo-boton-arrepentimiento' ), $h ),
 			'hours' => $h,
 		);
 	}

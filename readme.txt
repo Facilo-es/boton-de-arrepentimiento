@@ -1,58 +1,51 @@
-=== Botón Claro – Botón de arrepentimiento y baja de servicio ===
+=== Facilo Botón de Arrepentimiento y Baja ===
 Contributors: facilo
-Tags: arrepentimiento, boton de arrepentimiento, baja de servicio, argentina, woocommerce
+Tags: arrepentimiento, baja de servicio, argentina, woocommerce, devoluciones
 Requires at least: 6.6
 Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Show the return and cancellation buttons Argentine shoppers look for, give every customer a request code on the spot, and never lose a request again.
+Adds a withdrawal button and a service cancellation button to every page, with a short form that gives each customer a request code.
 
 == Description ==
 
-**Never lose a return or cancellation request again.**
+In Argentina, shoppers have 10 days to change their mind about a purchase made at a distance. Disposición 954/2025 asks online sellers to show a visible withdrawal button ("botón de arrepentimiento") and, for services, a cancellation button ("botón de baja"), each leading to a simple form.
 
-Botón Claro adds the "BOTÓN DE ARREPENTIMIENTO" (withdrawal button) and the "BOTÓN DE BAJA DE SERVICIO" (service cancellation button) described in Argentina's Disposición 954/2025 to your site. Your customer clicks once, fills in a short form and gets a request code straight away, on screen and by email. You get an email too, and you can see how much time you have left to answer.
+This plugin adds both buttons to your site, the two form pages behind them and a list where you see every request and how much time you have left to answer it.
 
-Fewer requests lost in your inbox, fewer complaints, and customers who buy with more confidence because they can see they are free to change their mind.
+How it works:
 
-If you run a WooCommerce Argentina shop and searched for the "ley de arrepentimiento" or the "botón de arrepentimiento ley", this is the plugin WooCommerce Argentina stores use to meet it: both buttons, the form and the deadlines, in plain Argentine Spanish.
+1. A customer clicks one of the buttons and fills in a short form. No account and no password are needed.
+2. The customer gets a request code at once, on screen and by email.
+3. You get an email, and the request appears in your list with its deadline.
+4. You answer the customer in your own way. The plugin never accepts, rejects or refunds anything by itself.
 
-Set it up in 3 minutes, with any theme, with or without WooCommerce. If you run a WooCommerce store in Argentina, or sell services, courses or subscriptions with WordPress, your "botón de arrepentimiento" and "botón de baja de servicio" stay visible on every page.
+It works on any WordPress site, with or without WooCommerce. With WooCommerce, each request links to its order and the customer's rights are shown in your order emails and at checkout.
 
-The plugin screens, forms and emails are in Argentine Spanish, because the rule applies in Argentina.
+The screens, forms and emails are in Argentine Spanish, because the rule applies in Argentina.
 
-= Free, with no limits =
+= What the free version includes =
 
-* Both buttons, visible and highlighted, on every page
-* Request forms with no sign-up, ready to use
-* An instant request code, on screen and by email
-* An email alert for every new request
-* A request list showing the time you have left to answer
-* A link to the WooCommerce order, and whether the email matches
+There are no limits and no trial period:
+
+* Both buttons on every page, in 3 styles and any colour you choose
+* Two ready form pages, with spam protection and no CAPTCHA
+* A request code on screen and by email
+* An email to you for every new request
+* A request list with the time left to answer
+* A link to the WooCommerce order, and whether the email matches it
 * A cancellation receipt in one click
 * A notice of the customer's rights in your emails and at checkout
 * Your customer service details next to the buttons
-* A site check to spot anything that went wrong
-* If an email fails, it is retried and you are told
+* A site check that sends you a test email
+* Failed emails are retried, and you are told
 
-= With Pro, handle each request in one click =
+= Pro version =
 
-* See at once whether a request is inside the 10 days, public holidays included
-* Accept, refund and restock in one click
-* Answer with ready-made emails for each case
-* Cancel subscriptions and send the receipt in one step
-* Flag products that may not accept withdrawal
-* Keep a record of every request and export everything to CSV
-* Get alerts before a deadline runs out
-
-For agencies, one plan with unlimited stores.
-
-= The rule, in a few words =
-
-Argentine law gives shoppers 10 days to change their mind about a distance purchase ("derecho de arrepentimiento"). Disposición 954/2025 asks for a visible "botón de arrepentimiento" with its "formulario de arrepentimiento", and adds a "botón de baja" for services. Botón Claro gives you those buttons, the forms and the request list. Each "arrepentimiento de compra" and every answer stays your decision.
+The optional Pro add-on helps you answer each request faster: it works out whether a request is inside the 10 days (public holidays included), adds 5 more button styles, lets you accept, refund and restock from the request page, adds ready-made replies, cancels subscriptions with a receipt, flags products that may be exempt, keeps a history and exports to CSV. It is sold separately on facilo.es. The free version works fully without it.
 
 = Tested with =
 
@@ -60,86 +53,80 @@ Storefront, Twenty Twenty-Five, Astra, Hello Elementor, OceanWP, Kadence and Gen
 
 = Your data =
 
-Your customers' data stays on your site. Botón Claro Free connects to no outside service: it sets no cookies, loads nothing from other sites and sends email through WordPress's own mail function.
+Your customers' data stays on your site. The free version connects to no outside service: it sets no cookies, loads nothing from other sites and sends email through WordPress's own mail function.
 
-Botón Claro is a tool. It is not legal advice, and the decision on each request is always yours.
+This plugin is a tool, not legal advice. Each decision on a request is yours.
 
 == Installation ==
 
-1. In WordPress, go to Plugins, Add New, and search for "botón de arrepentimiento".
-2. Install and activate Botón Claro.
-3. Follow the guided setup: in 3 minutes you have the buttons, the form pages and the email alert.
-4. Send a test request from the last step to see everything working.
+1. In WordPress, go to Plugins, Add New, search for "Facilo Botón de Arrepentimiento", then install and activate it.
+2. The guided setup opens. Choose a button style and colours, add your customer service details and say whether you sell services.
+3. The plugin creates the two form pages and shows the buttons on every page.
+4. On the last step, send a test request to see the code, both emails and the request list.
+
+You can change everything later under the plugin's Ajustes screen. To put the buttons somewhere else, use the plugin's blocks or shortcodes.
 
 == Frequently Asked Questions ==
 
 = Do I need WooCommerce? =
 
-No. It works on any WordPress site, so it also suits services, courses and subscriptions. With WooCommerce it adds the order link and the notice in your emails.
+No. It works on any WordPress site, so it also suits services, courses and subscriptions.
 
 = Does it work with my theme? =
 
-The buttons are added to every page by themselves, without editing your theme. If you prefer another spot, there is a block and a shortcode.
+The buttons are added to every page without editing your theme. There is also a block and a shortcode for a different spot.
 
 = Does it work with caching plugins? =
 
-Yes. The form keeps working even when the page is cached.
-
-= Does my customer need an account? =
-
-No. No account and no password.
+Yes. The form keeps working on cached pages.
 
 = Do I have to show the cancellation button if I only sell products? =
 
-Disposición 954/2025 talks about goods and services, but the "botón de baja" is for cancelling a contracted service. It is on by default and you can turn it off. If in doubt, ask your adviser.
+The cancellation button is for contracted services. It is on by default and you can turn it off in Ajustes. If in doubt, ask your adviser.
 
 = Is installing it all I need to do? =
 
-No. The plugin gives you the buttons, the forms and the list. Answering each request and your other obligations stay with you, and it is worth reviewing them with your adviser.
+No. The plugin gives you the buttons, the forms and the list. Answering each request and your other obligations stay with you.
 
 = Does the plugin reject requests? =
 
-Never. Even after the 10 days, the request comes through. You decide.
+Never. A request sent after the 10 days still comes through, and you decide.
 
-= What happened to Resolución 424/2020? =
+= What about Resolución 424/2020? =
 
-Disposición 954/2025 replaced it. It keeps the "botón de arrepentimiento" and adds new details. The plugin follows the new rule.
-
-= I come from Tiendanube. Is it the same? =
-
-Tiendanube has its own withdrawal button. Botón Claro is for sites built with WordPress.
+Disposición 954/2025 replaced it. The plugin follows the newer rule.
 
 = Why doesn't my customer get the email? =
 
-It happens on many hosts. That is why the code also shows on screen. Use the site check to send yourself a test email.
-
-= Where does the data stay? =
-
-On your site. Botón Claro Free sends nothing anywhere else. To buy Pro, Freemius stores your licence details.
+Some hosts don't deliver WordPress email well. That is why the code also shows on screen. Use the site check to send yourself a test email.
 
 = How much is Pro? =
 
-USD 19 a year per store, or USD 59 for agencies with unlimited stores. It is paid in dollars by card, and your bank may add taxes. You have 14 days to get your money back.
+USD 19 a year for one store, or USD 59 a year for unlimited stores. It is paid by card through Freemius, and you have 14 days to get your money back.
 
 = What happens if I uninstall the plugin? =
 
-Your requests and settings stay, unless you tick "Borrar todos los datos al desinstalar" (delete all data on uninstall) in Ajustes, Privacidad. The button pages always stay, in case you edited them.
+Your requests and settings stay, unless you tick "Borrar todos los datos al desinstalar" (delete all data on uninstall) in Ajustes, Privacidad. The form pages always stay, in case you edited them.
 
 == Screenshots ==
 
-1. Your two buttons, visible with any theme
-2. A short form, with no sign-up
-3. Your customer gets the code straight away
-4. Every request, with the time you have left
-5. Ready in 3 minutes
-6. Each request, handled in one click
+1. The two buttons on a shop page
+2. The short request form
+3. The customer gets the request code at once
+4. The request list, with the time left to answer
+5. The guided setup
+6. A request in Pro, handled from one page
 
 == Changelog ==
+
+= 1.0.1 =
+* New name: Facilo Botón de Arrepentimiento y Baja.
+* Security and code quality improvements.
 
 = 1.0.0 =
 * First release.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-First release.
+= 1.0.1 =
+New name, and security improvements.

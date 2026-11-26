@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "boton-claro/formulario",
+	"name": "facilo-boton-arrepentimiento/formulario",
 	"title": "Formulario de arrepentimiento o baja",
 	"category": "widgets",
 	"icon": "feedback",
 	"description": "El formulario donde tus clientes piden el arrepentimiento o la baja y reciben un código.",
 	"keywords": [ "arrepentimiento", "baja", "formulario" ],
-	"textdomain": "boton-de-arrepentimiento",
+	"textdomain": "facilo-boton-arrepentimiento",
 	"attributes": {
 		"tipo": { "type": "string", "enum": [ "arrepentimiento", "baja" ], "default": "arrepentimiento" }
 	},

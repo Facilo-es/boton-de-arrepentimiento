@@ -3,7 +3,7 @@
  * Uninstall. Data goes only when the owner ticked "Borrar todos los datos al desinstalar".
  * The pages stay either way, since the owner may have edited them.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
@@ -24,7 +24,7 @@ function bclaro_uninstall_site() {
 	foreach ( array( 'bclaro_requests', 'bclaro_events' ) as $table ) {
 		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . $table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange -- our own tables, on uninstall.
 	}
-	foreach ( array( 'bclaro_settings', 'bclaro_setup_done', 'bclaro_db_version', 'bclaro_cron_ran_at', 'bclaro_check' ) as $option ) {
+	foreach ( array( 'bclaro_settings', 'bclaro_setup_done', 'bclaro_db_version', 'bclaro_plugin_version', 'bclaro_cron_ran_at', 'bclaro_check' ) as $option ) {
 		delete_option( $option );
 	}
 	// Rate-limit counters.

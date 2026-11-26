@@ -2,7 +2,7 @@
 /**
  * Daily retention (F13): blanks old closed requests, deletes old spam and test requests.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;

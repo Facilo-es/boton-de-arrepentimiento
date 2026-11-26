@@ -2,7 +2,7 @@
 /**
  * Pedidos: the request list. A plain table, no WP_List_Table, so it matches the design.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -89,7 +89,7 @@ class AdminList {
 		$html = '';
 		$rc   = $c['reply'];
 		if ( ! $rc ) {
-			$html .= '<span class="t done">' . esc_html__( 'Cerrado', 'boton-de-arrepentimiento' ) . '</span>';
+			$html .= '<span class="t done">' . esc_html__( 'Cerrado', 'facilo-boton-arrepentimiento' ) . '</span>';
 		} elseif ( 'done' === $rc['state'] ) {
 			$html .= '<span class="t done">' . esc_html( $rc['text'] ) . '</span>';
 		} else {
@@ -99,15 +99,15 @@ class AdminList {
 		$pc = $c['proof'];
 		if ( $pc ) {
 			if ( 'done' === $pc['state'] ) {
-				$text = __( 'Constancia enviada', 'boton-de-arrepentimiento' );
+				$text = __( 'Constancia enviada', 'facilo-boton-arrepentimiento' );
 				$cls  = 'done';
 			} elseif ( 'late' === $pc['state'] ) {
 				/* translators: %s: "1 hora" or "n horas". */
-				$text = sprintf( __( 'Constancia: vencida hace %s', 'boton-de-arrepentimiento' ), Util::hours( $pc['hours'] ) );
+				$text = sprintf( __( 'Constancia: vencida hace %s', 'facilo-boton-arrepentimiento' ), Util::hours( $pc['hours'] ) );
 				$cls  = 'late';
 			} else {
 				/* translators: %s: "1 hora" or "n horas". */
-				$text = 1 === (int) $pc['hours'] ? __( 'Constancia: queda 1 hora', 'boton-de-arrepentimiento' ) : sprintf( __( 'Constancia: quedan %s', 'boton-de-arrepentimiento' ), Util::hours( $pc['hours'] ) );
+				$text = 1 === (int) $pc['hours'] ? __( 'Constancia: queda 1 hora', 'facilo-boton-arrepentimiento' ) : sprintf( __( 'Constancia: quedan %s', 'facilo-boton-arrepentimiento' ), Util::hours( $pc['hours'] ) );
 				$cls  = 'soon' === $pc['state'] ? 'warn' : '';
 			}
 			$html .= '<small class="tp ' . esc_attr( $cls ) . '">' . esc_html( $text ) . '</small>';
@@ -144,6 +144,7 @@ class AdminList {
 			'en_curso'       => 'curso',
 			'resuelto'       => 'hecho',
 			'no_corresponde' => 'no',
+			'repetido'       => 'no',
 			'spam'           => 'spam',
 		);
 		return '<span class="st ' . esc_attr( isset( $cls[ $status ] ) ? $cls[ $status ] : '' ) . '">' . esc_html( isset( $all[ $status ] ) ? $all[ $status ] : $status ) . '</span>';
@@ -195,18 +196,18 @@ class AdminList {
 		);
 		$res    = Requests::query( $query, $f['paged'], self::PER_PAGE );
 		$cols   = array(
-			'code'    => __( 'Código', 'boton-de-arrepentimiento' ),
-			'type'    => __( 'Tipo', 'boton-de-arrepentimiento' ),
-			'client'  => __( 'Cliente', 'boton-de-arrepentimiento' ),
-			'order'   => __( 'Pedido', 'boton-de-arrepentimiento' ),
-			'created' => __( 'Recibido', 'boton-de-arrepentimiento' ),
-			'time'    => __( 'Tiempo', 'boton-de-arrepentimiento' ),
-			'status'  => __( 'Estado', 'boton-de-arrepentimiento' ),
+			'code'    => __( 'Código', 'facilo-boton-arrepentimiento' ),
+			'type'    => __( 'Tipo', 'facilo-boton-arrepentimiento' ),
+			'client'  => __( 'Cliente', 'facilo-boton-arrepentimiento' ),
+			'order'   => __( 'Pedido', 'facilo-boton-arrepentimiento' ),
+			'created' => __( 'Recibido', 'facilo-boton-arrepentimiento' ),
+			'time'    => __( 'Tiempo', 'facilo-boton-arrepentimiento' ),
+			'status'  => __( 'Estado', 'facilo-boton-arrepentimiento' ),
 		);
 		if ( ! Util::woo() ) {
 			// No store, no order column (T30). Service sites still see which service a baja is about.
 			if ( Pages::needed( 'baja' ) ) {
-				$cols['order'] = __( 'Servicio', 'boton-de-arrepentimiento' );
+				$cols['order'] = __( 'Servicio', 'facilo-boton-arrepentimiento' );
 			} else {
 				unset( $cols['order'] );
 			}
@@ -219,15 +220,15 @@ class AdminList {
 		$cols = (array) apply_filters( 'bclaro_list_columns', $cols );
 
 		echo '<div class="wrap bclaro-wrap">';
-		self::title( __( 'Pedidos', 'boton-de-arrepentimiento' ) );
+		self::title( __( 'Pedidos', 'facilo-boton-arrepentimiento' ) );
 		self::message();
 
 		echo '<div class="kpis">';
 		$tiles = array(
-			array( $counts['nuevo'], __( 'Nuevo', 'boton-de-arrepentimiento' ), '' ),
-			array( $counts['en_curso'], __( 'En curso', 'boton-de-arrepentimiento' ), '' ),
-			array( $kpis['late'], __( 'Vencido', 'boton-de-arrepentimiento' ), $kpis['late'] ? 'late' : 'calm' ),
-			array( $counts['resuelto'], __( 'Resuelto', 'boton-de-arrepentimiento' ), '' ),
+			array( $counts['nuevo'], __( 'Nuevo', 'facilo-boton-arrepentimiento' ), '' ),
+			array( $counts['en_curso'], __( 'En curso', 'facilo-boton-arrepentimiento' ), '' ),
+			array( $kpis['late'], __( 'Vencido', 'facilo-boton-arrepentimiento' ), $kpis['late'] ? 'late' : 'calm' ),
+			array( $counts['resuelto'], __( 'Resuelto', 'facilo-boton-arrepentimiento' ), '' ),
 		);
 		foreach ( $tiles as $tile ) {
 			echo '<div class="kpi ' . esc_attr( $tile[2] ) . '"><b>' . esc_html( number_format_i18n( $tile[0] ) ) . '</b><span>' . esc_html( $tile[1] ) . '</span></div>';
@@ -235,7 +236,7 @@ class AdminList {
 		echo '</div>';
 
 		echo '<form class="bclaro-tabs" method="get"><input type="hidden" name="page" value="bclaro"><ul class="subsubsub">';
-		$tabs = array_merge( array( '' => __( 'Todos', 'boton-de-arrepentimiento' ) ), Util::statuses() );
+		$tabs = array_merge( array( '' => __( 'Todos', 'facilo-boton-arrepentimiento' ) ), Util::statuses() );
 		$i    = 0;
 		foreach ( $tabs as $key => $label ) {
 			$n   = '' === $key ? $counts['todos'] : $counts[ $key ];
@@ -254,11 +255,11 @@ class AdminList {
 		if ( '' !== $f['estado'] ) {
 			echo '<input type="hidden" name="estado" value="' . esc_attr( $f['estado'] ) . '">';
 		}
-		echo '<label class="screen-reader-text" for="bclaro-tipo">' . esc_html__( 'Tipo', 'boton-de-arrepentimiento' ) . '</label><select id="bclaro-tipo" name="tipo" onchange="this.form.submit()"><option value="">' . esc_html__( 'Todos los tipos', 'boton-de-arrepentimiento' ) . '</option>';
+		echo '<label class="screen-reader-text" for="bclaro-tipo">' . esc_html__( 'Tipo', 'facilo-boton-arrepentimiento' ) . '</label><select id="bclaro-tipo" name="tipo" onchange="this.form.submit()"><option value="">' . esc_html__( 'Todos los tipos', 'facilo-boton-arrepentimiento' ) . '</option>';
 		foreach ( array( 'arrepentimiento', 'baja' ) as $type ) {
 			echo '<option value="' . esc_attr( $type ) . '"' . selected( $f['type'], $type, false ) . '>' . esc_html( Util::type_label( $type ) ) . '</option>';
 		}
-		echo '</select><label class="screen-reader-text" for="bclaro-s">' . esc_html__( 'Buscar', 'boton-de-arrepentimiento' ) . '</label><input type="search" id="bclaro-s" name="s" value="' . esc_attr( $f['s'] ) . '" placeholder="' . esc_attr__( 'Código, nombre, correo o pedido', 'boton-de-arrepentimiento' ) . '"><button class="button">' . esc_html__( 'Buscar', 'boton-de-arrepentimiento' ) . '</button>';
+		echo '</select><label class="screen-reader-text" for="bclaro-s">' . esc_html__( 'Buscar', 'facilo-boton-arrepentimiento' ) . '</label><input type="search" id="bclaro-s" name="s" value="' . esc_attr( $f['s'] ) . '" placeholder="' . esc_attr__( 'Código, nombre, correo o pedido', 'facilo-boton-arrepentimiento' ) . '"><button class="button">' . esc_html__( 'Buscar', 'facilo-boton-arrepentimiento' ) . '</button>';
 		/**
 		 * Extra tools over the list, such as Pro's CSV export.
 		 *
@@ -269,9 +270,9 @@ class AdminList {
 
 		if ( ! $res['rows'] ) {
 			$empty = ( '' === $f['estado'] && '' === $f['type'] && '' === $f['s'] && ! $counts['todos'] )
-				? __( 'Todavía no llegó ningún pedido. Cuando llegue uno, te avisamos por correo y lo ves acá.', 'boton-de-arrepentimiento' )
-				: __( 'No hay pedidos con estos filtros.', 'boton-de-arrepentimiento' );
-			echo '<div class="bclaro-empty">' . self::mark( 40 ) . '<p>' . esc_html( $empty ) . '</p></div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+				? __( 'Todavía no llegó ningún pedido. Cuando llegue uno, te avisamos por correo y lo ves acá.', 'facilo-boton-arrepentimiento' )
+				: __( 'No hay pedidos con estos filtros.', 'facilo-boton-arrepentimiento' );
+			echo '<div class="bclaro-empty">' . wp_kses( self::mark( 40 ), Kses::allowed() ) . '<p>' . esc_html( $empty ) . '</p></div></div>';
 			return;
 		}
 
@@ -290,7 +291,7 @@ class AdminList {
 					case 'code':
 						echo '<a class="code" href="' . esc_url( $link ) . '">' . esc_html( $r->code ) . '</a>';
 						if ( $r->is_test ) {
-							echo ' <span class="tag-test">' . esc_html__( 'Prueba', 'boton-de-arrepentimiento' ) . '</span>';
+							echo ' <span class="tag-test">' . esc_html__( 'Prueba', 'facilo-boton-arrepentimiento' ) . '</span>';
 						}
 						break;
 					case 'type':
@@ -310,10 +311,10 @@ class AdminList {
 						echo esc_html( Util::short( Util::ts( $r->created_at ) ) );
 						break;
 					case 'time':
-						echo self::time_cell( $r, $c ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in time_cell().
+						echo wp_kses( self::time_cell( $r, $c ), Kses::allowed() );
 						break;
 					case 'status':
-						echo self::pill( $r->status ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in pill().
+						echo wp_kses( self::pill( $r->status ), Kses::allowed() );
 						break;
 					default:
 						/**
@@ -370,15 +371,15 @@ class AdminList {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- message key only.
 		$msg = isset( $_GET['msg'] ) ? sanitize_key( wp_unslash( $_GET['msg'] ) ) : '';
 		$all = array(
-			'estado'           => array( 'success', __( 'Cambiamos el estado.', 'boton-de-arrepentimiento' ) ),
-			'respondido'       => array( 'success', __( 'Listo: marcamos el pedido como respondido.', 'boton-de-arrepentimiento' ) ),
-			'constancia'       => array( 'success', __( 'Mandamos la constancia y cerramos el pedido.', 'boton-de-arrepentimiento' ) ),
-			'constancia_fallo' => array( 'error', __( 'No pudimos mandar la constancia. Revisá que tu sitio pueda enviar correos y probá de nuevo.', 'boton-de-arrepentimiento' ) ),
-			'reenviado'        => array( 'success', __( 'Le mandamos el código al cliente.', 'boton-de-arrepentimiento' ) ),
-			'reenvio_fallo'    => array( 'error', __( 'No pudimos enviar el código por correo.', 'boton-de-arrepentimiento' ) ),
-			'borrado'          => array( 'success', __( 'Borramos el pedido.', 'boton-de-arrepentimiento' ) ),
-			'prueba'           => array( 'success', __( 'Hicimos un pedido de prueba. Te mandamos el mismo correo que recibe un cliente.', 'boton-de-arrepentimiento' ) ),
-			'error'            => array( 'error', __( 'No pudimos hacer ese cambio.', 'boton-de-arrepentimiento' ) ),
+			'estado'           => array( 'success', __( 'Cambiamos el estado.', 'facilo-boton-arrepentimiento' ) ),
+			'respondido'       => array( 'success', __( 'Listo: marcamos el pedido como respondido.', 'facilo-boton-arrepentimiento' ) ),
+			'constancia'       => array( 'success', __( 'Mandamos la constancia y cerramos el pedido.', 'facilo-boton-arrepentimiento' ) ),
+			'constancia_fallo' => array( 'error', __( 'No pudimos mandar la constancia. Revisá que tu sitio pueda enviar correos y probá de nuevo.', 'facilo-boton-arrepentimiento' ) ),
+			'reenviado'        => array( 'success', __( 'Le mandamos el código al cliente.', 'facilo-boton-arrepentimiento' ) ),
+			'reenvio_fallo'    => array( 'error', __( 'No pudimos enviar el código por correo.', 'facilo-boton-arrepentimiento' ) ),
+			'borrado'          => array( 'success', __( 'Borramos el pedido.', 'facilo-boton-arrepentimiento' ) ),
+			'prueba'           => array( 'success', __( 'Hicimos un pedido de prueba. Te mandamos el mismo correo que recibe un cliente.', 'facilo-boton-arrepentimiento' ) ),
+			'error'            => array( 'error', __( 'No pudimos hacer ese cambio.', 'facilo-boton-arrepentimiento' ) ),
 		);
 		if ( isset( $all[ $msg ] ) ) {
 			echo '<div class="notice notice-' . esc_attr( $all[ $msg ][0] ) . ' is-dismissible"><p>' . esc_html( $all[ $msg ][1] ) . '</p></div>';

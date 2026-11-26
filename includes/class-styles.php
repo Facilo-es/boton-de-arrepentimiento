@@ -4,7 +4,7 @@
  *
  * The colour rules are a port of the design's estilo.js, so the admin preview and the site agree.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -28,17 +28,17 @@ class Styles {
 		$styles = array(
 			'banda'    => array(
 				'label' => 'Banda',
-				'desc'  => __( 'Una franja ancha del color de tu tienda', 'boton-de-arrepentimiento' ),
+				'desc'  => __( 'Una franja ancha del color de tu tienda', 'facilo-boton-arrepentimiento' ),
 				'css'   => $dir . 'banda.css',
 			),
 			'capsula'  => array(
 				'label' => 'Cápsula',
-				'desc'  => __( 'Botones redondeados, flotan con sombra', 'boton-de-arrepentimiento' ),
+				'desc'  => __( 'Botones redondeados, flotan con sombra', 'facilo-boton-arrepentimiento' ),
 				'css'   => $dir . 'capsula.css',
 			),
 			'contorno' => array(
 				'label' => 'Contorno',
-				'desc'  => __( 'Blanco con borde, sobrio y prolijo', 'boton-de-arrepentimiento' ),
+				'desc'  => __( 'Blanco con borde, sobrio y prolijo', 'facilo-boton-arrepentimiento' ),
 				'css'   => $dir . 'contorno.css',
 			),
 		);
@@ -568,7 +568,7 @@ class Styles {
 			'style' => $pick,
 			'color' => $color,
 			/* translators: 1: style name, 2: reason, 3: where the colour comes from. */
-			'why'   => sprintf( __( 'Elegimos %1$s porque %2$s, y el color es %3$s.', 'boton-de-arrepentimiento' ), $label, $why, $from ),
+			'why'   => sprintf( __( 'Elegimos %1$s porque %2$s, y el color es %3$s.', 'facilo-boton-arrepentimiento' ), $label, $why, $from ),
 		);
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Admin shell: menu, assets, notices, the activation redirect and the request actions.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -53,10 +53,10 @@ class Admin {
 	 * Page title row with the mark.
 	 *
 	 * @param string $title Title.
-	 * @param string $extra Extra HTML after the title, already escaped.
+	 * @param string $extra Extra HTML after the title (escaped here through the allow-list).
 	 */
 	public static function title( $title, $extra = '' ) {
-		echo '<div class="bclaro-tit">' . self::mark() . '<h1>' . esc_html( $title ) . '</h1>' . $extra . '</div><hr class="wp-header-end">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- mark is static; $extra is escaped by the caller.
+		echo '<div class="bclaro-tit">' . wp_kses( self::mark() . '<h1>' . esc_html( $title ) . '</h1>' . $extra, Kses::allowed() ) . '</div><hr class="wp-header-end">';
 	}
 
 	/**
@@ -67,10 +67,10 @@ class Admin {
 		$n     = Requests::open_count();
 		$count = $n ? ' <span class="awaiting-mod count-' . $n . '"><span class="pending-count">' . number_format_i18n( $n ) . '</span></span>' : '';
 		$icon  = 'data:image/svg+xml;base64,' . base64_encode( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M4 1h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3zm1 8v2h8.2l-3.1 2.9 1.4 1.4L17 10l-5.5-5.3-1.4 1.4L13.2 9z"/></svg>' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- menu icon data URI.
-		add_menu_page( 'Botón Claro', 'Botón Claro' . $count, $cap, 'bclaro', array( 'BotonClaro\\AdminList', 'page' ), $icon, 56 );
-		add_submenu_page( 'bclaro', __( 'Pedidos', 'boton-de-arrepentimiento' ), __( 'Pedidos', 'boton-de-arrepentimiento' ) . $count, $cap, 'bclaro', array( 'BotonClaro\\AdminList', 'page' ) );
-		add_submenu_page( 'bclaro', __( 'Ajustes', 'boton-de-arrepentimiento' ), __( 'Ajustes', 'boton-de-arrepentimiento' ), $cap, 'bclaro-ajustes', array( 'BotonClaro\\AdminSettings', 'page' ) );
-		add_submenu_page( 'bclaro', __( 'Revisión del sitio', 'boton-de-arrepentimiento' ), __( 'Revisión', 'boton-de-arrepentimiento' ), $cap, 'bclaro-revision', array( 'BotonClaro\\SiteCheck', 'page' ) );
+		add_menu_page( 'Facilo Botón de Arrepentimiento', 'Facilo Botón de Arrepentimiento' . $count, $cap, 'bclaro', array( 'BotonClaro\\AdminList', 'page' ), $icon, 56 );
+		add_submenu_page( 'bclaro', __( 'Pedidos', 'facilo-boton-arrepentimiento' ), __( 'Pedidos', 'facilo-boton-arrepentimiento' ) . $count, $cap, 'bclaro', array( 'BotonClaro\\AdminList', 'page' ) );
+		add_submenu_page( 'bclaro', __( 'Ajustes', 'facilo-boton-arrepentimiento' ), __( 'Ajustes', 'facilo-boton-arrepentimiento' ), $cap, 'bclaro-ajustes', array( 'BotonClaro\\AdminSettings', 'page' ) );
+		add_submenu_page( 'bclaro', __( 'Revisión del sitio', 'facilo-boton-arrepentimiento' ), __( 'Revisión', 'facilo-boton-arrepentimiento' ), $cap, 'bclaro-revision', array( 'BotonClaro\\SiteCheck', 'page' ) );
 		/**
 		 * Pro adds its own screens here.
 		 *
@@ -83,9 +83,9 @@ class Admin {
 		 * @param bool $show Show.
 		 */
 		if ( apply_filters( 'bclaro_pro_tab', true ) ) {
-			add_submenu_page( 'bclaro', 'Botón Claro Pro', 'Pro', $cap, 'bclaro-pro', array( __CLASS__, 'pro_page' ) );
+			add_submenu_page( 'bclaro', __( 'La versión Pro', 'facilo-boton-arrepentimiento' ), 'Pro', $cap, 'bclaro-pro', array( __CLASS__, 'pro_page' ) );
 		}
-		add_submenu_page( 'bclaro', __( 'Configurar Botón Claro', 'boton-de-arrepentimiento' ), __( 'Configurar', 'boton-de-arrepentimiento' ), $cap, 'bclaro-setup', array( 'BotonClaro\\Setup', 'page' ) );
+		add_submenu_page( 'bclaro', __( 'Configurar Facilo Botón de Arrepentimiento', 'facilo-boton-arrepentimiento' ), __( 'Configurar', 'facilo-boton-arrepentimiento' ), $cap, 'bclaro-setup', array( 'BotonClaro\\Setup', 'page' ) );
 	}
 
 	/**
@@ -116,6 +116,9 @@ class Admin {
 		}
 		wp_enqueue_style( 'bclaro-admin', BCLARO_URL . 'assets/admin.css', array(), BCLARO_VERSION );
 		wp_enqueue_script( 'bclaro-admin', BCLARO_URL . 'assets/admin.js', array(), BCLARO_VERSION, true );
+		if ( 'bclaro-ajustes' === $page ) {
+			AdminSettings::enqueue_tile_styles();
+		}
 		wp_localize_script(
 			'bclaro-admin',
 			'bclaroAdmin',
@@ -139,7 +142,7 @@ class Admin {
 	 * @return array
 	 */
 	public static function links( $links ) {
-		array_unshift( $links, '<a href="' . esc_url( Util::admin_url( 'bclaro-ajustes' ) ) . '">' . esc_html__( 'Ajustes', 'boton-de-arrepentimiento' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( Util::admin_url( 'bclaro-ajustes' ) ) . '">' . esc_html__( 'Ajustes', 'facilo-boton-arrepentimiento' ) . '</a>' );
 		return $links;
 	}
 
@@ -163,7 +166,7 @@ class Admin {
 	 * Notice when a code email gave up.
 	 */
 	public static function mail_notice() {
-		if ( ! current_user_can( Util::cap() ) ) {
+		if ( '' === self::is_own_screen() || ! current_user_can( Util::cap() ) ) {
 			return;
 		}
 		$s = Settings::get();
@@ -173,7 +176,7 @@ class Admin {
 				Retry::clear_alert( $id );
 				continue;
 			}
-			echo '<div class="notice notice-error bclaro-notice"><p><strong>' . esc_html( $req->code ) . ':</strong> ' . esc_html__( 'No pudimos enviar el código por correo.', 'boton-de-arrepentimiento' ) . ' <a href="' . esc_url( Util::admin_url( 'bclaro', array( 'id' => (int) $req->id ) ) ) . '">' . esc_html__( 'Ver el pedido', 'boton-de-arrepentimiento' ) . '</a></p></div>';
+			echo '<div class="notice notice-error is-dismissible bclaro-notice"><p><strong>' . esc_html( $req->code ) . ':</strong> ' . esc_html__( 'No pudimos enviar el código por correo.', 'facilo-boton-arrepentimiento' ) . ' <a href="' . esc_url( Util::admin_url( 'bclaro', array( 'id' => (int) $req->id ) ) ) . '">' . esc_html__( 'Ver el pedido', 'facilo-boton-arrepentimiento' ) . '</a></p></div>';
 		}
 	}
 
@@ -184,13 +187,13 @@ class Admin {
 	 */
 	private static function request_from_post() {
 		if ( ! current_user_can( Util::cap() ) ) {
-			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'boton-de-arrepentimiento' ), 403 );
+			wp_die( esc_html__( 'No tenés permiso para hacer esto.', 'facilo-boton-arrepentimiento' ), 403 );
 		}
 		$id = isset( $_REQUEST['id'] ) ? absint( $_REQUEST['id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- checked on the next line.
 		check_admin_referer( 'bclaro_req_' . $id );
 		$req = Requests::get( $id );
 		if ( ! $req ) {
-			wp_die( esc_html__( 'No encontramos ese pedido.', 'boton-de-arrepentimiento' ), 404 );
+			wp_die( esc_html__( 'No encontramos ese pedido.', 'facilo-boton-arrepentimiento' ), 404 );
 		}
 		return $req;
 	}
@@ -300,7 +303,7 @@ class Admin {
 		$color = isset( $_POST['color'] ) ? Styles::clean_color( sanitize_text_field( wp_unslash( $_POST['color'] ) ) ) : '';
 		$s     = array_merge( Settings::get(), array( 'style' => $style ) );
 		/** This filter is documented in includes/class-adminsettings.php */
-		$s   = (array) apply_filters( 'bclaro_sanitize_settings', $s, wp_unslash( $_POST ), 'preview' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Pro sanitizes its own keys in this filter.
+		$s   = (array) apply_filters( 'bclaro_sanitize_settings', $s, AdminSettings::posted(), 'preview' );
 		$out = array(
 			'css' => Styles::css( $style, $color ? $color : '#a8421f', $s ),
 			'msg' => self::color_message( $color ),
@@ -325,18 +328,18 @@ class Admin {
 		$color = Styles::clean_color( $color );
 		if ( '' === $color || ! Styles::legible( $color ) ) {
 			return array(
-				'text' => __( 'Este color no se lee bien ni con texto blanco ni con texto negro. Probá uno más claro o más oscuro.', 'boton-de-arrepentimiento' ),
+				'text' => __( 'Este color no se lee bien ni con texto blanco ni con texto negro. Probá uno más claro o más oscuro.', 'facilo-boton-arrepentimiento' ),
 				'bad'  => true,
 			);
 		}
 		if ( '#ffffff' !== Styles::text_on( $color ) ) {
 			return array(
-				'text' => __( 'Con este color ponemos el texto en negro, para que se lea bien.', 'boton-de-arrepentimiento' ),
+				'text' => __( 'Con este color ponemos el texto en negro, para que se lea bien.', 'facilo-boton-arrepentimiento' ),
 				'bad'  => false,
 			);
 		}
 		return array(
-			'text' => __( 'Se lee bien, con texto blanco.', 'boton-de-arrepentimiento' ),
+			'text' => __( 'Se lee bien, con texto blanco.', 'facilo-boton-arrepentimiento' ),
 			'bad'  => false,
 		);
 	}
@@ -355,23 +358,23 @@ class Admin {
 			return;
 		}
 		$items = array(
-			__( 'Sabé al instante si un pedido está dentro de los 10 días, con feriados incluidos', 'boton-de-arrepentimiento' ),
-			__( 'Aceptá, devolvé la plata y reponé el stock en un clic', 'boton-de-arrepentimiento' ),
-			__( 'Respondé con correos listos para cada caso', 'boton-de-arrepentimiento' ),
-			__( 'Cancelá suscripciones y mandá la constancia en un solo paso', 'boton-de-arrepentimiento' ),
-			__( 'Guardá un archivo de cada pedido y exportá todo a CSV', 'boton-de-arrepentimiento' ),
-			__( 'Recibí avisos antes de que venza un plazo', 'boton-de-arrepentimiento' ),
+			__( 'Sabé al instante si un pedido está dentro de los 10 días, con feriados incluidos', 'facilo-boton-arrepentimiento' ),
+			__( 'Aceptá, devolvé la plata y reponé el stock en un clic', 'facilo-boton-arrepentimiento' ),
+			__( 'Respondé con correos listos para cada caso', 'facilo-boton-arrepentimiento' ),
+			__( 'Cancelá suscripciones y mandá la constancia en un solo paso', 'facilo-boton-arrepentimiento' ),
+			__( 'Guardá un archivo de cada pedido y exportá todo a CSV', 'facilo-boton-arrepentimiento' ),
+			__( 'Recibí avisos antes de que venza un plazo', 'facilo-boton-arrepentimiento' ),
 		);
-		self::title( 'Botón Claro Pro' );
+		self::title( __( 'La versión Pro', 'facilo-boton-arrepentimiento' ) );
 		echo '<div class="bclaro-pro"><div class="bclaro-pro-in">';
-		echo '<h2>' . esc_html__( 'Resolvé cada pedido en un clic', 'boton-de-arrepentimiento' ) . '</h2>';
-		echo '<p class="bclaro-lead">' . esc_html__( 'Botón Claro gratis recibe los pedidos. Pro te ahorra el trabajo que viene después.', 'boton-de-arrepentimiento' ) . '</p><ul class="bclaro-checks">';
+		echo '<h2>' . esc_html__( 'Resolvé cada pedido en un clic', 'facilo-boton-arrepentimiento' ) . '</h2>';
+		echo '<p class="bclaro-lead">' . esc_html__( 'La versión gratis recibe los pedidos. Pro te ahorra el trabajo que viene después.', 'facilo-boton-arrepentimiento' ) . '</p><ul class="bclaro-checks">';
 		foreach ( $items as $i ) {
 			echo '<li>' . esc_html( $i ) . '</li>';
 		}
-		echo '</ul><p class="bclaro-price">' . esc_html__( 'USD 19 al año por tienda. USD 59 al año para agencias, tiendas sin límite.', 'boton-de-arrepentimiento' ) . '</p>';
-		echo '<p class="bclaro-fine">' . esc_html__( '14 días para recuperar tu dinero. Se paga en dólares con tarjeta, y tu banco puede sumar impuestos.', 'boton-de-arrepentimiento' ) . '</p>';
-		echo '<p><a class="bclaro-btn pri" href="' . esc_url( BCLARO_PRO_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Pasar a Pro', 'boton-de-arrepentimiento' ) . '</a></p>';
+		echo '</ul><p class="bclaro-price">' . esc_html__( 'USD 19 al año por tienda. USD 59 al año para agencias, tiendas sin límite.', 'facilo-boton-arrepentimiento' ) . '</p>';
+		echo '<p class="bclaro-fine">' . esc_html__( '14 días para recuperar tu dinero. Se paga en dólares con tarjeta, y tu banco puede sumar impuestos.', 'facilo-boton-arrepentimiento' ) . '</p>';
+		echo '<p><a class="bclaro-btn pri" href="' . esc_url( BCLARO_PRO_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Pasar a Pro', 'facilo-boton-arrepentimiento' ) . '</a></p>';
 		echo '</div></div></div>';
 	}
 }

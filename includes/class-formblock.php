@@ -2,7 +2,7 @@
 /**
  * The form block and shortcode, and the logged-in prefill.
  *
- * @package BotonClaro
+ * @package FaciloBotonArrepentimiento
  */
 
 namespace BotonClaro;
@@ -44,12 +44,12 @@ class FormBlock {
 			BCLARO_VERSION,
 			true
 		);
-		wp_set_script_translations( 'bclaro-editor', 'boton-de-arrepentimiento' );
+		wp_set_script_translations( 'bclaro-editor', 'facilo-boton-arrepentimiento' );
 		register_block_type(
 			BCLARO_DIR . 'blocks/formulario',
 			array( 'render_callback' => array( __CLASS__, 'render_block' ) )
 		);
-		add_shortcode( 'boton_claro_formulario', array( __CLASS__, 'shortcode' ) );
+		add_shortcode( 'facilo_arrepentimiento_formulario', array( __CLASS__, 'shortcode' ) );
 	}
 
 	/**
@@ -63,13 +63,13 @@ class FormBlock {
 	}
 
 	/**
-	 * [boton_claro_formulario tipo="baja"].
+	 * [facilo_arrepentimiento_formulario tipo="baja"].
 	 *
 	 * @param array $atts Attributes.
 	 * @return string
 	 */
 	public static function shortcode( $atts ) {
-		$atts = shortcode_atts( array( 'tipo' => 'arrepentimiento' ), $atts, 'boton_claro_formulario' );
+		$atts = shortcode_atts( array( 'tipo' => 'arrepentimiento' ), $atts, 'facilo_arrepentimiento_formulario' );
 		return self::render( $atts['tipo'] );
 	}
 
